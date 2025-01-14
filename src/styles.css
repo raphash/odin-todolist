@@ -1,3 +1,94 @@
-p {
+@font-face { font-family: "Inter-Regular"; src: url("./assets/fonts/Inter/Inter-Regular.ttf"); }
+@font-face { font-family: "Inter-Medium"; src: url("./assets/fonts/Inter/Inter-Medium.ttf"); }
+@font-face { font-family: "Inter-Bold"; src: url("./assets/fonts/Inter/Inter-Bold.ttf"); }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #475569;
+}
+
+body {
+  font-family: "Inter-Regular";
+  height: 100vh;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 275px 1fr;
+  height: inherit;
+  background-color: var(--bg-primary);
+}
+
+box-icon:hover {
   color: red;
+  scale: 1.05;
+  opacity: 0.75;
+}
+
+.sidebar {
+  display: grid;
+  grid-template-rows: max-content max-content 1fr;
+  border-right: 1px solid var(--bg-secondary);
+}
+
+.sidebar .header {
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: .5rem;
+  border-bottom: 1px solid var(--bg-secondary);
+}
+
+.sidebar .header .add-project {
+  justify-self: end;
+}
+
+.sidebar .separator {
+  color: #e2e8f0;
+  font-size: 1.2rem;
+  font-family: "Inter-Bold";
+  padding: .5rem;
+  border-bottom: 1px solid var(--bg-secondary);
+}
+
+.sidebar .projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 32px;
+  align-content: flex-start;
+  padding: .5rem;
+  gap: .5rem;
+}
+
+.sidebar .project {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  gap: .5rem;
+  padding: 0 .15rem 0 .25rem;
+  color: #e2e8f0;
+  border: 1px solid #64748b;
+}
+
+.sidebar .project .icons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .15rem;
+  align-items: center;
+}
+
+.sidebar .project .title {
+  display: inline-block;
+  font-family: "Inter-Bold";
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
