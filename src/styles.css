@@ -77,7 +77,7 @@ box-icon:hover {
   border: 1px solid #64748b;
 }
 
-.sidebar .project .icons {
+.sidebar .project .buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: .15rem;

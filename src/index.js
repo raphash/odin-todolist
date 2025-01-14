@@ -1,4 +1,6 @@
-import "./styles.css"
-import "boxicons"
+import "./styles.css";
+import "boxicons";
 
-console.log("Hello, World!");
+import { Project, createProjectCard } from "./components/Project.js";
+
+createProjectCard(new Project("Example"));
