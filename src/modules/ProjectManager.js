@@ -24,6 +24,15 @@ export function removeProject(targetProject) {
   }
 }
 
+export function setProjectTitle(id, title) {
+  for (const project of getProjects()) {
+    if (project.id == id) {
+      project.title = title;
+    }
+  }
+}
+
+// Adds all localStorage projects to projects array
 export function updateProjects() {
   clearProjects();
 
@@ -45,6 +54,7 @@ export function clearProjectsView() {
   projectsEl.innerHTML = "";
 }
 
+// Update all projects components based on localStorage
 export function updateProjectsView() {
   clearProjectsView();
 

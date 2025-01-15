@@ -16,6 +16,7 @@
   --fg-blue: #0b1322;
   --fg-white: #e2e8f0;
   --fg-lightblue: #5c73f6;
+  --fg-lightred: #f65c5c;
 }
 
 body {
@@ -195,4 +196,9 @@ box-icon:hover {
 .project-dialog[open] .create {
   color: var(--fg-white);
   background-color: var(--fg-lightblue);
+}
+
+.project-dialog[open] .edit {
+  color: var(--fg-white);
+  background-color: var(--fg-lightred);
 }
