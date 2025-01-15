@@ -32,6 +32,14 @@ export function setProjectTitle(id, title) {
   }
 }
 
+export function getProject(id) {
+  for (const project of projects) {
+    if (project.id == id) {
+      return project;
+    }
+  }
+}
+
 // Adds all localStorage projects to projects array
 export function updateProjects() {
   clearProjects();

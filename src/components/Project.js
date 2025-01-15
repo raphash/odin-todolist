@@ -6,7 +6,8 @@ import uniqid from 'uniqid';
 export function createProject(title) {
   return { 
     title,
-    id: uniqid()
+    id: uniqid(),
+    todos: []
    };
 }
 
@@ -17,6 +18,7 @@ export function renderProjectCard(project) {
   const projects = document.querySelector(".projects");
   const projectCard = document.createElement("div");
         projectCard.classList.add("project");
+        projectCard.setAttribute("data-id", project.id);
         
   projectCard.innerHTML = `<p class="title">${project.title}</p>          
                           <div class="buttons">
