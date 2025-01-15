@@ -5,7 +5,11 @@ export function getProjects() {
 }
 
 export function getProjectCount() {
-  return JSON.parse(localStorage.getItem("projects")).length;
+  if (localStorage.getItem("projects")) {
+    return localStorage.getItem("projects").length;
+  } 
+
+  return 0;
 }
 
 // Update all projects saved in localStorage based on ProjectManager
