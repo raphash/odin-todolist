@@ -1,8 +1,6 @@
-export class Project {
-  constructor(title) {
-    this.title = title;
-  }
-};
+export function createProject(title) {
+  return { title };
+}
 
 export function createProjectCard(project) {
   const projects = document.querySelector(".projects");
@@ -16,4 +14,4 @@ export function createProjectCard(project) {
                           </div>`;
 
   projects.appendChild(projectTab);
-};
+}

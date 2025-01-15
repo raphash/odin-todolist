@@ -1,6 +1,9 @@
 import "./styles.css";
 import "boxicons";
 
-import { Project, createProjectCard } from "./components/Project.js";
+import * as Project from "./components/Project.js";
+import * as ProjectManager from "./modules/ProjectManager.js";
 
-createProjectCard(new Project("Example"));
+ProjectManager.addProject(Project.createProject("Default"));
+
+ProjectManager.updateProjectsView();

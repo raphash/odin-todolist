@@ -56,6 +56,7 @@ box-icon:hover {
   font-family: "Inter-Bold";
   padding: .5rem;
   border-bottom: 1px solid var(--bg-secondary);
+  user-select: none;
 }
 
 .sidebar .projects {
@@ -91,4 +92,5 @@ box-icon:hover {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  user-select: none;
 }
