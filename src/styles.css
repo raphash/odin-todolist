@@ -31,6 +31,10 @@ main {
   background-color: var(--bg-blue);
 }
 
+main .content {
+  background-color: var(--bg-blue);
+}
+
 box-icon:hover {
   color: red;
   scale: 1.05;
@@ -41,6 +45,7 @@ box-icon:hover {
   display: grid;
   grid-template-rows: max-content max-content 1fr;
   border-right: 1px solid var(--bg-gray);
+  background-color: var(--bg-blue);
 }
 
 .sidebar .header {
