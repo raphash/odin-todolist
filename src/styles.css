@@ -11,8 +11,11 @@
 }
 
 :root {
-  --bg-primary: #0f172a;
-  --bg-secondary: #475569;
+  --bg-blue: #0f172a;
+  --bg-gray: #475569;
+  --fg-blue: #0b1322;
+  --fg-white: #e2e8f0;
+  --fg-lightblue: #5c73f6;
 }
 
 body {
@@ -24,7 +27,7 @@ main {
   display: grid;
   grid-template-columns: 275px 1fr;
   height: inherit;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-blue);
 }
 
 box-icon:hover {
@@ -36,14 +39,14 @@ box-icon:hover {
 .sidebar {
   display: grid;
   grid-template-rows: max-content max-content 1fr;
-  border-right: 1px solid var(--bg-secondary);
+  border-right: 1px solid var(--bg-gray);
 }
 
 .sidebar .header {
   display: grid;
   grid-template-columns: 1fr;
   padding: .5rem;
-  border-bottom: 1px solid var(--bg-secondary);
+  border-bottom: 1px solid var(--bg-gray);
 }
 
 .sidebar .header .add-project {
@@ -51,11 +54,11 @@ box-icon:hover {
 }
 
 .sidebar .separator {
-  color: #e2e8f0;
+  color: var(--fg-white);
   font-size: 1.2rem;
   font-family: "Inter-Bold";
   padding: .5rem;
-  border-bottom: 1px solid var(--bg-secondary);
+  border-bottom: 1px solid var(--bg-gray);
   user-select: none;
 }
 
@@ -74,7 +77,7 @@ box-icon:hover {
   align-items: center;
   gap: .5rem;
   padding: 0 .15rem 0 .25rem;
-  color: #e2e8f0;
+  color: var(--fg-white);
   border: 1px solid #64748b;
 }
 
@@ -93,4 +96,103 @@ box-icon:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
   user-select: none;
+}
+
+.project-dialog[open] {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  align-items: center;
+  width: 500px;
+  height: 350px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border: none;
+  padding: 2rem;
+  gap: 1rem;
+  color: var(--fg-white);
+  border: 1px solid var(--bg-gray);
+  background-color: var(--fg-blue);
+}
+
+.project-dialog[open] .header {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr repeat(2, max-content);
+  justify-items: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.project-dialog[open] .title {
+  margin-top: 1rem;
+  font-family: "Inter-Medium";
+}
+
+.project-dialog[open] .subtitle {
+  width: 75%;
+  color: var(--bg-gray);
+  text-align: center;
+}
+
+.project-dialog[open] form {
+  height: 100%;
+  grid-row: 2 / 3;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, max-content);
+  align-items: center;
+  gap: .75rem;
+}
+
+.project-dialog[open] form label {
+  font-family: "Inter-Medium";
+}
+
+.project-dialog[open] form .row {
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+  gap: .75rem;
+}
+
+.project-dialog[open] input {
+  font-family: inherit;
+  width: 100%;
+  padding: .25rem 0 .25rem .25rem;
+  border: none;
+  border-radius: 4px;
+  padding: .5rem;
+  outline: 1px solid var(--bg-gray);
+  color: var(--fg-white);
+  background-color: var(--fg-blue);
+  appearance: none;
+}
+
+.project-dialog[open] .buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .75rem;
+}
+
+.project-dialog[open] button {
+  font-family: "Inter-Bold";
+  padding: .5rem;
+  border: none;
+  border-radius: 4px;
+  appearance: none;
+}
+
+.project-dialog[open] button:hover {
+  background-image: linear-gradient(rgb(0 0 0 / 45%) 0 0);
+}
+
+.project-dialog[open] .cancel {
+  color: var(--fg-white);
+  background-color: var(--bg-gray);
+}
+
+.project-dialog[open] .create {
+  color: var(--fg-white);
+  background-color: var(--fg-lightblue);
 }

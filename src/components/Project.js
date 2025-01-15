@@ -2,7 +2,7 @@ export function createProject(title) {
   return { title };
 }
 
-export function createProjectCard(project) {
+export function renderProjectCard(project) {
   const projects = document.querySelector(".projects");
   const projectTab = document.createElement("div");
         projectTab.classList.add("project");
