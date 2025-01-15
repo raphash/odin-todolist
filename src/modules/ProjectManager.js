@@ -7,6 +7,14 @@ export function addProject(project) {
   projects.push(project);
 }
 
+export function removeProject(targetProject) {
+  for (const project of projects) {
+    if (project.id == targetProject.id) {
+      projects.splice(projects.indexOf(project), 1);
+    }
+  }
+}
+
 export function getProjects() {
   return projects;
 }
