@@ -1,5 +1,10 @@
+import uniqid from 'uniqid';
+
 export function createProject(title) {
-  return { title };
+  return { 
+    title,
+    id: uniqid()
+   };
 }
 
 export function renderProjectCard(project) {

@@ -7,4 +7,3 @@ import * as DialogManager from "./modules/DialogManager.js";
 
 ProjectManager.addProject(Project.createProject("Default"));
 ProjectManager.updateProjectsView();
-DialogManager.showCreateProject();

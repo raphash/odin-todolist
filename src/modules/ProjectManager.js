@@ -1,4 +1,5 @@
-import { renderProjectCard } from "../components/Project.js";
+import * as Project from "../components/Project.js";
+import * as DialogManager from "./DialogManager.js";
 
 const projects = [];
 
@@ -23,6 +24,14 @@ export function updateProjectsView() {
   clearProjectsView();
 
   for (const project of projects) {
-    renderProjectCard(project);
+    Project.renderProjectCard(project);
   }
 }
+
+const ProjectManager = (function(){
+  const addProject = document.querySelector(".add-project");
+  
+  addProject.addEventListener("click", ()=>{
+    DialogManager.showCreateProject();
+  });
+})();

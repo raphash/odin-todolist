@@ -1,3 +1,6 @@
+import * as Project from "../components/Project.js";
+import * as ProjectManager from "../modules/ProjectManager.js";
+
 export function hideCreateProject() {
   let dialog = document.querySelector("dialog");
 
@@ -9,14 +12,14 @@ export function showCreateProject() {
   // Dialog configuration.
   hideCreateProject();
 
-  const main = document.querySelector("main");
-  
+  let cancelBtn;
+  let createBtn;
+  let projectName;
+
+  const main = document.querySelector("main");  
   const dialog = document.createElement("dialog");
         dialog.setAttribute("open", "open");
         dialog.classList.add("project-dialog");
-
-  let cancelBtn;
-  let createBtn;
   
   dialog.innerHTML = `<div class="header">
       <box-icon type="solid" 
@@ -51,10 +54,19 @@ export function showCreateProject() {
 
   // Dialog items configuration.
   cancelBtn = dialog.querySelector(".cancel");
+  createBtn = dialog.querySelector(".create");
+  projectName = dialog.querySelector("#project-name");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
     hideCreateProject();
     dialog.close();
+  });
+
+  createBtn.addEventListener("click", (e)=>{
+    if (projectName.value) {
+      ProjectManager.addProject(Project.createProject(projectName.value));
+      ProjectManager.updateProjectsView();
+    }
   });
 }
