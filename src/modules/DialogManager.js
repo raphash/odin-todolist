@@ -1,5 +1,6 @@
 import * as Project from "../components/Project.js";
 import * as ProjectManager from "../modules/ProjectManager.js";
+import * as LocalStorage from "../modules/LocalStorage.js";
 
 export function hideCreateProject() {
   let dialog = document.querySelector("dialog");
@@ -66,6 +67,7 @@ export function showCreateProject() {
   createBtn.addEventListener("click", (e)=>{
     if (projectName.value) {
       ProjectManager.addProject(Project.createProject(projectName.value));
+      LocalStorage.updateProjects();
       ProjectManager.updateProjectsView();
     }
   });

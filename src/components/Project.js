@@ -1,4 +1,5 @@
 import * as ProjectManager from "../modules/ProjectManager.js";
+import * as LocalStorage from "../modules/LocalStorage.js";
 import uniqid from 'uniqid';
 
 export function createProject(title) {
@@ -27,6 +28,7 @@ export function renderProjectCard(project) {
   
   deleteBtn.addEventListener("click", ()=>{
     ProjectManager.removeProject(project);
+    LocalStorage.updateProjects();
     ProjectManager.updateProjectsView();
   });
 }

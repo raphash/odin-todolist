@@ -1,7 +1,16 @@
 import * as Project from "../components/Project.js";
 import * as DialogManager from "./DialogManager.js";
+import * as LocalStorage from "./LocalStorage.js";
 
 const projects = [];
+
+export function initialSetup() {
+  if (LocalStorage.getProjectCount() <= 0) {
+    addProject(Project.createProject("Default"));
+    LocalStorage.updateProjects();
+    updateProjectsView();
+  }
+}
 
 export function addProject(project) {
   projects.push(project);
@@ -12,6 +21,14 @@ export function removeProject(targetProject) {
     if (project.id == targetProject.id) {
       projects.splice(projects.indexOf(project), 1);
     }
+  }
+}
+
+export function updateProjects() {
+  clearProjects();
+
+  for (const project of LocalStorage.getProjects()) {
+    projects.push(project);
   }
 }
 
@@ -31,7 +48,7 @@ export function clearProjectsView() {
 export function updateProjectsView() {
   clearProjectsView();
 
-  for (const project of projects) {
+  for (const project of LocalStorage.getProjects()) {
     Project.renderProjectCard(project);
   }
 }
