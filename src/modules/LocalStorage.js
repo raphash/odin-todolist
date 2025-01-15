@@ -6,7 +6,7 @@ export function getProjects() {
 
 export function getProjectCount() {
   if (localStorage.getItem("projects")) {
-    return localStorage.getItem("projects").length;
+    return JSON.parse(localStorage.getItem("projects")).length;
   } 
 
   return 0;
