@@ -119,8 +119,6 @@ export function showEditProject() {
       </div>
     </form>`
 
-  main.appendChild(dialog);
-
   // Dialog items configuration.
   cancelBtn = dialog.querySelector(".cancel");
   editBtn = dialog.querySelector(".edit");
@@ -141,6 +139,8 @@ export function showEditProject() {
 
     hideDialog();
   });
+
+  main.appendChild(dialog);
 }
 
 export function seActiveProjectName(newName) {
@@ -221,10 +221,9 @@ export function showCreateTodo() {
                         <div class="row">
                           <label for="todo-priority">Priority</label>
                           <select name="todo-priority" id="todo-priority">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
+                            <option value="low-priority">Low</option>
+                            <option value="medium-priority">Medium</option>
+                            <option value="high-priority">High</option>
                           </select>
                         </div>
                       </div>
@@ -259,13 +258,15 @@ export function showCreateTodo() {
       }
     }
 
-    TodoManager.addTodo(LocalStorage.getCurrentProjectId(), Todo.createTodo(
+    const todo =  Todo.createTodo(
       info["todoTitle"].value,
       info["todoDescription"].value,
       info["todoDueDate"].value,
       info["todoPriority"].value
-    ));
+    );
 
+    TodoManager.addTodo(LocalStorage.getCurrentProjectId(),  todo);
+    TodoManager.createTodoCard(todo);
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
     LocalStorage.updateProjects();
   });

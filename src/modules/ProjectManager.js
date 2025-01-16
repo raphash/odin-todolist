@@ -6,7 +6,10 @@ const projects = [];
 
 export function initialSetup() {
   if (LocalStorage.getProjectCount() <= 0) {
-    addProject(Project.createProject("Default"));
+    const project = Project.createProject("Default");
+    
+    addProject(project);
+    LocalStorage.saveCurrentProjectId(project.id);
     LocalStorage.updateProjects();
     updateProjectsView();
   }

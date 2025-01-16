@@ -17,6 +17,10 @@
   --fg-white: #e2e8f0;
   --fg-lightblue: #5c73f6;
   --fg-lightred: #f65c5c;
+  --fg-lightgray: #e2e8f0;;
+  --priority-high: #ff3a3a50;
+  --priority-medium: #ffe13a50;
+  --priority-low: #47ff3a50;
 }
 
 body {
@@ -216,7 +220,7 @@ box-icon:hover {
   background-color: var(--fg-white);
 }
 
-.content .header {
+.content > .header {
   display: grid;
   align-items: center;
   border-bottom: 1px solid var(--bg-gray);
@@ -388,4 +392,93 @@ box-icon:hover {
 .todo-dialog[open] .edit {
   color: var(--fg-white);
   background-color: var(--fg-lightred);
+}
+
+.todos {
+  display: grid;
+  align-content: start;
+  padding: 2rem;
+  gap: .5rem;
+}
+
+.todo {
+  min-width: 300px;
+  height: 115px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2rem;
+  align-content: space-between;
+  gap: .5rem;
+  padding: 1rem;
+  border: 1px solid gray;
+  background-color: var(--fg-blue);
+}
+
+.todo .header {
+  display: grid;
+  grid-template-rows: repeat(2, 1rem) 1fr;
+  align-items: center;
+  gap: .5rem;
+}
+
+.todo .footer {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo .title {
+  max-width: 450px;
+  font-family: "Inter-Bold";
+  font-size: .85rem;
+  color: var(--fg-white);
+  text-transform: capitalize;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.todo .description {
+  font-size: .75rem;
+  color: var(--fg-lightgray);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.todo .description::first-letter {
+  text-transform: uppercase;
+}
+
+.todo .time {
+  font-family: "Inter-Medium";
+  font-size: .85rem;
+  color: var(--fg-lightgray);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.todo .buttons {
+  justify-self: end;
+  align-self: end;
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: .15rem;
+}
+
+.high-priority {
+  border-color: var(--priority-high);
+}
+
+.medium-priority {
+  border-color: var(--priority-medium);
+}
+
+.low-priority {
+  border-color: var(--priority-low);
 }

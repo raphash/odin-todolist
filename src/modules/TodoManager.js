@@ -1,5 +1,6 @@
 import * as ProjectManager from "./ProjectManager.js";
 import * as DialogManager from "./DialogManager.js";
+import * as LocalStorage from "./LocalStorage.js";
 
 const todos = [];
 
@@ -7,7 +8,11 @@ const todos = [];
 export function addTodo(projectId, todo) {
   if (ProjectManager.getProject(projectId)) {
     ProjectManager.getProject(projectId)["todos"].push(todo);
+    return;
   }
+
+  ProjectManager.initialSetup();
+  ProjectManager.getProject(LocalStorage.getCurrentProjectId())["todos"].push(todo);
 }
 
 export function clearTodos() {
@@ -36,10 +41,38 @@ export function setCurrentProjectViewTitle(projectId) {
         title.textContent = ProjectManager.getProject(projectId).title;
 }
 
-const TodoManager = (function() {
-  const addTodo = document.querySelector(".add-todo");
+export function createTodoCard(todo) {
+  const todos = document.querySelector(".todos");  
+  const todoCard = document.createElement("div");
+        todoCard.classList.add("todo");
+        todoCard.classList.add(todo.priority);
   
-  addTodo.addEventListener("click", ()=>{
+  todoCard.innerHTML = `<div class="header">
+                          <p class="title">${todo.title}</p>
+                          <p class="description">${todo.description}</p>
+                        </div>
+
+                        <div class="footer">
+                          <p class="time">
+                            <time datetime="${todo.dueDate}">${todo.dueDate}</time>
+                          </p>
+                          <div class="buttons">
+                            <box-icon name='edit' color="#6fed72" class="edit-todo"></box-icon>
+                            <box-icon name='trash-alt' color="#5c73f6" class="delete-todo"></box-icon>
+                          </div>
+                        </div>`
+
+  todos.appendChild(todoCard);
+}
+
+const TodoManager = (function() {
+  const addTodoBtn = document.querySelector(".add-todo");
+  
+  addTodoBtn.addEventListener("click", ()=>{
     DialogManager.showCreateTodo();
   });
 })();
+
+/* <div class="todo high-priority">
+  
+</div> */
