@@ -3,6 +3,7 @@ import * as ProjectManager from "../modules/ProjectManager.js";
 import * as LocalStorage from "../modules/LocalStorage.js";
 import * as DateFormat from "./DateFormat.js";
 import * as TodoManager from "./TodoManager.js";
+import * as Todo from "../components/Todo.js";
 
 export function hideDialog() {
   let dialog = document.querySelector("dialog");
@@ -164,7 +165,7 @@ export function showCreateTodo() {
   let cancelBtn;
   let createBtn;
 
-  let todoName;
+  let todoTitle;
   let todoDescription;
   let todoDueDate;
   let todoPriority;
@@ -234,11 +235,13 @@ export function showCreateTodo() {
                       </div>
                     </form>`
 
-  todoName = dialog.querySelector("#todo-name");
-  todoDescription = dialog.querySelector("#todo-description");
-  todoDueDate = dialog.querySelector("#todo-dueDate");
-  todoPriority = dialog.querySelector("#todo-priority");
-
+  const info = {
+    todoTitle: dialog.querySelector("#todo-name"),
+    todoDescription: dialog.querySelector("#todo-description"),
+    todoDueDate: dialog.querySelector("#todo-dueDate"),
+    todoPriority: dialog.querySelector("#todo-priority")
+  };
+  
   cancelBtn = dialog.querySelector(".cancel");
   createBtn = dialog.querySelector(".create");
 
@@ -249,7 +252,22 @@ export function showCreateTodo() {
   });
 
   createBtn.addEventListener("click", ()=>{
-    return
+    // Checks if all inputs is not empty.
+    for (const input in info) {
+      if (!info[input].value) {
+        return;
+      }
+    }
+
+    TodoManager.addTodo(LocalStorage.getCurrentProjectId(), Todo.createTodo(
+      info["todoTitle"].value,
+      info["todoDescription"].value,
+      info["todoDueDate"].value,
+      info["todoPriority"].value
+    ));
+
+    TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
+    LocalStorage.updateProjects();
   });
 
   main.appendChild(dialog);
