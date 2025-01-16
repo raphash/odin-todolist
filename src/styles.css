@@ -101,7 +101,7 @@ box-icon:hover {
 .sidebar .project .title {
   display: inline-block;
   font-family: "Inter-Bold";
-  font-size: 14px;
+  font-size: .85rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -248,24 +248,6 @@ box-icon:hover {
 
 .content .currentProject .icon {
   scale: 0.75;
-}
-
-.sidebar .project .buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: .15rem;
-  align-items: center;
-}
-
-.sidebar .project .title {
-  display: inline-block;
-  font-family: "Inter-Bold";
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  user-select: none;
-  text-transform: capitalize;
 }
 
 .todo-dialog[open] {
