@@ -13,7 +13,7 @@ export function createProject(title) {
    };
 }
 
-export function renderProjectCard(project) {
+export function createCard(project) {
   let deleteBtn;
   let editBtn;
   let projectId;

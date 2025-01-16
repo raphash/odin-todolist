@@ -42,7 +42,7 @@ export function removeProject(targetProject) {
   }
 }
 
-// Modify an existing project title.
+// Modify an existing project title
 export function setProjectTitle(id, title) {
   for (const project of getProjects()) {
     if (project.id == id) {
@@ -96,7 +96,7 @@ export function updateProjectsView() {
   LocalStorage.updateProjects();
 
   for (const project of LocalStorage.getProjects()) {
-    Project.renderProjectCard(project);
+    Project.createCard(project);
   }
 }
 

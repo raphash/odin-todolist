@@ -266,7 +266,7 @@ export function showCreateTodoDialog() {
 
     TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
     TodoManager.addTodo(LocalStorage.getCurrentProjectId(), todo);
-    TodoManager.createTodoCard(todo);
+    Todo.createCard(todo);
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
     LocalStorage.updateProjects();
   });

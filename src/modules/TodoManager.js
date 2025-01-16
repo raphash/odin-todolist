@@ -1,6 +1,7 @@
 import * as ProjectManager from "./ProjectManager.js";
 import * as DialogManager from "./DialogManager.js";
 import * as LocalStorage from "./LocalStorage.js";
+import * as Todo from "../components/Todo.js";
 
 const todos = [];
 
@@ -76,30 +77,6 @@ export function setHeaderTitle(projectId) {
   headerTitle.textContent = ProjectManager.getProject(projectId).title;
 }
 
-export function createTodoCard(todo) {
-  const todos = document.querySelector(".todos");  
-  const todoCard = document.createElement("div");
-        todoCard.classList.add("todo");
-        todoCard.classList.add(todo.priority);
-  
-  todoCard.innerHTML = `<div class="header">
-                          <p class="title">${todo.title}</p>
-                          <p class="description">${todo.description}</p>
-                        </div>
-
-                        <div class="footer">
-                          <p class="time">
-                            <time datetime="${todo.dueDate}">${todo.dueDate}</time>
-                          </p>
-                          <div class="buttons">
-                            <box-icon name='edit' color="#6fed72" class="edit-todo"></box-icon>
-                            <box-icon name='trash-alt' color="#5c73f6" class="delete-todo"></box-icon>
-                          </div>
-                        </div>`
-
-  todos.appendChild(todoCard);
-}
-
 export function clearTodosView() {
   const todos = document.querySelector(".todos");
         todos.innerHTML = "";
@@ -112,7 +89,7 @@ export function updateTodosView(projectId) {
 
   if (todos.length > 0) {
     for (const todo of todos) {
-      createTodoCard(todo);
+      Todo.createCard(todo);
     }
   }
 }
