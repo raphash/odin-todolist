@@ -1,4 +1,5 @@
 import * as ProjectManager from "./ProjectManager.js";
+import * as DialogManager from "./DialogManager.js";
 
 const todos = [];
 
@@ -29,3 +30,16 @@ export function updateTodos(projectId) {
 export function getTodos() {
   return todos;
 }
+
+export function setCurrentProjectViewTitle(projectId) {
+  const title = document.querySelector(".currentProject .title");
+        title.textContent = ProjectManager.getProject(projectId).title;
+}
+
+const TodoManager = (function() {
+  const addTodo = document.querySelector(".add-todo");
+  
+  addTodo.addEventListener("click", ()=>{
+    DialogManager.showCreateTodo();
+  });
+})();

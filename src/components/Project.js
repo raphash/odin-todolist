@@ -33,12 +33,15 @@ export function renderProjectCard(project) {
   deleteBtn = projectCard.querySelector(".delete-project");
   editBtn = projectCard.querySelector(".edit-project");
 
+  // User projectCard interface interaction listeners.
   projectCard.addEventListener("click", (e)=>{
     e.stopPropagation();
 
     const projectId = projectCard.getAttribute("data-id");
 
-    TodoManager.updateTodos(projectId);
+    LocalStorage.saveCurrentProjectId(projectId);
+    TodoManager.setCurrentProjectViewTitle(projectId);
+    TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
   });
   
   deleteBtn.addEventListener("click", (e)=>{
@@ -53,7 +56,7 @@ export function renderProjectCard(project) {
     e.stopPropagation();
 
     DialogManager.showEditProject();
-    DialogManager.setDialogProjectName(project.title);
+    DialogManager.seActiveProjectName(project.title);
     DialogManager.setDialogProjectId(project.id);
   });
 }

@@ -1,5 +1,13 @@
 import * as ProjectManager from "./ProjectManager.js";
 
+export function saveCurrentProjectId(projectId) {
+  localStorage.setItem("currentProjectId", projectId);
+}
+
+export function getCurrentProjectId() {
+  return localStorage.getItem("currentProjectId");
+}
+
 export function getProjects() {
   return JSON.parse(localStorage.getItem("projects"));
 }
