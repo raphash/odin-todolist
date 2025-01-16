@@ -393,7 +393,6 @@ box-icon:hover {
   gap: .5rem;
   padding: 1rem;
   border: 1px solid gray;
-  background-color: var(--fg-blue);
 }
 
 .todo .header {
