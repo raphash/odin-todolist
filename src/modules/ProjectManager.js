@@ -3,7 +3,6 @@ import * as DialogManager from "./DialogManager.js";
 import * as LocalStorage from "./LocalStorage.js";
 import * as TodoManager from "./TodoManager.js";
 import * as Todo from "../components/Todo.js";
-import * as DateFormat from "./DateFormat.js";
 
 const projects = [];
 
@@ -12,21 +11,21 @@ function createInitialProject() {
     
   addProject(project);
 
-  TodoManager.addTodo(project.id, Todo.createTodo(
+  TodoManager.addProjectTodo(project.id, Todo.createTodo(
     "Some Task",
     "Some Description ...",
     "2025-01-01",
     "low-priority"
   ));
 
-  TodoManager.addTodo(project.id, Todo.createTodo(
+  TodoManager.addProjectTodo(project.id, Todo.createTodo(
     "Some Task",
     "Some Description ...",
     "2025-02-01",
     "medium-priority"
   ));
 
-  TodoManager.addTodo(project.id, Todo.createTodo(
+  TodoManager.addProjectTodo(project.id, Todo.createTodo(
     "Some Task",
     "Some Description ...",
     "2025-03-01",
@@ -75,8 +74,7 @@ export function getProject(id) {
       return project;
     }
   }
-
-  return 0;
+  return null;
 }
 
 // Adds all localStorage projects to projects array
@@ -84,7 +82,7 @@ export function updateProjects() {
   clearProjects();
 
   for (const project of LocalStorage.getProjects()) {
-    projects.push(project);
+    addProject(project);
   }
 }
 

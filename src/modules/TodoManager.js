@@ -6,7 +6,7 @@ import * as Todo from "../components/Todo.js";
 const todos = [];
 
 // Adds a todo to todos array of specific project.
-export function addTodo(projectId, todo) {
+export function addProjectTodo(projectId, todo) {
   const project = ProjectManager.getProject(projectId);
 
   if (project) {

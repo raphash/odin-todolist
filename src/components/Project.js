@@ -6,18 +6,10 @@ import * as TodoManager from "../modules/TodoManager.js";
 import uniqid from 'uniqid';
 
 export function createProject(title) {
-  return { 
-    title,
-    id: uniqid(),
-    todos: []
-   };
+  return { title, todos: [], id: uniqid() };
 }
 
 export function createCard(project) {
-  let deleteBtn;
-  let editBtn;
-  let projectId;
-  
   const projects = document.querySelector(".projects");
   const projectCard = document.createElement("div");
         projectCard.classList.add("project");
@@ -31,9 +23,9 @@ export function createCard(project) {
 
   projects.appendChild(projectCard);
 
-  deleteBtn = projectCard.querySelector(".delete-project");
-  editBtn = projectCard.querySelector(".edit-project");
-  projectId = projectCard.getAttribute("data-id");
+  let deleteBtn = projectCard.querySelector(".delete-project");
+  let editBtn = projectCard.querySelector(".edit-project");
+  let projectId = projectCard.getAttribute("data-id");
 
   // User projectCard interface interaction listeners.
   projectCard.addEventListener("click", (e)=>{
@@ -47,15 +39,15 @@ export function createCard(project) {
   deleteBtn.addEventListener("click", (e)=>{
     e.stopPropagation();
 
-    // Clear copied todos and todos view.
     TodoManager.clearTodos();
     TodoManager.clearTodosView();
 
     ProjectManager.removeProject(project);
-    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
 
+    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
     TodoManager.updateTodosView(LocalStorage.getCurrentProjectId());
+    
     ProjectManager.updateProjectsView();
   });
 

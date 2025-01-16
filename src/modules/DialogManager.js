@@ -7,7 +7,6 @@ import * as Todo from "../components/Todo.js";
 
 export function removeDialog() {
   let dialog = document.querySelector("dialog");
-
   if (dialog) dialog.remove();
 }
 
@@ -16,50 +15,44 @@ export function showCreateProjectDialog() {
   // Dialog configuration.
   removeDialog();
 
-  let cancelBtn;
-  let createBtn;
-  let projectName;
-
   const main = document.querySelector("main");  
   const dialog = document.createElement("dialog");
         dialog.setAttribute("open", "open");
         dialog.classList.add("project-dialog");
   
   dialog.innerHTML = `<div class="header">
-      <box-icon type="solid" 
-                name="package"
-                size="md"
-                color="#5c73f6"></box-icon>
-      
-      <p class="title">Create Project</p>
-      <p class="subtitle">
-        Here you can create a new project
-        for this you need to select a title!
-      </p>
-    </div>
+                      <box-icon type="solid" 
+                                name="package"
+                                size="md"
+                                color="#5c73f6"></box-icon>
+                      
+                      <p class="title">Create Project</p>
+                      <p class="subtitle">
+                        Here you can create a new project
+                        for this you need to select a title!
+                      </p>
+                    </div>
 
-    <form method="dialog">
-      <div class="row">
-        <label for="project-name">Project</label>
-        <input type="text"
-              name="project-name"
-              id="project-name"
-              autocomplete="off"
-              required>
-      </div>
+                    <form method="dialog">
+                      <div class="row">
+                        <label for="project-name">Project</label>
+                        <input type="text"
+                              name="project-name"
+                              id="project-name"
+                              autocomplete="off"
+                              required>
+                      </div>
 
-      <div class="buttons">
-        <button class="cancel">Cancel</button>
-        <button class="create">Create</button>
-      </div>
-    </form>`
-
-  main.appendChild(dialog);
+                      <div class="buttons">
+                        <button class="cancel">Cancel</button>
+                        <button class="create">Create</button>
+                      </div>
+                    </form>`
 
   // Dialog items configuration.
-  cancelBtn = dialog.querySelector(".cancel");
-  createBtn = dialog.querySelector(".create");
-  projectName = dialog.querySelector("#project-name");
+  let cancelBtn = dialog.querySelector(".cancel");
+  let createBtn = dialog.querySelector(".create");
+  let projectName = dialog.querySelector("#project-name");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
@@ -74,6 +67,8 @@ export function showCreateProjectDialog() {
       ProjectManager.updateProjectsView();
     }
   });
+
+  main.appendChild(dialog);
 }
 
 export function showEditProjectDialog() {
@@ -81,48 +76,44 @@ export function showEditProjectDialog() {
   // Dialog configuration.
   removeDialog();
 
-  let cancelBtn;
-  let editBtn;
-  let projectName;
-
   const main = document.querySelector("main");  
   const dialog = document.createElement("dialog");
         dialog.setAttribute("open", "open");
         dialog.classList.add("project-dialog");
   
   dialog.innerHTML = `<div class="header">
-      <box-icon type="solid" 
-                name="edit"
-                size="md"
-                color="#f65c5c"></box-icon>
-      
-      <p class="title">Edit Project</p>
-      <p class="subtitle">
-        Here you can edit a project
-        for this you need to select a new title!
-      </p>
-    </div>
+                      <box-icon type="solid" 
+                                name="edit"
+                                size="md"
+                                color="#f65c5c"></box-icon>
+                      
+                      <p class="title">Edit Project</p>
+                      <p class="subtitle">
+                        Here you can edit a project
+                        for this you need to select a new title!
+                      </p>
+                    </div>
 
-    <form method="dialog">
-      <div class="row">
-        <label for="project-name">Project</label>
-        <input type="text"
-              name="project-name"
-              id="project-name"
-              autocomplete="off"
-              required>
-      </div>
+                    <form method="dialog">
+                      <div class="row">
+                        <label for="project-name">Project</label>
+                        <input type="text"
+                              name="project-name"
+                              id="project-name"
+                              autocomplete="off"
+                              required>
+                      </div>
 
-      <div class="buttons">
-        <button class="cancel">Cancel</button>
-        <button class="edit">Edit</button>
-      </div>
-    </form>`
+                      <div class="buttons">
+                        <button class="cancel">Cancel</button>
+                        <button class="edit">Edit</button>
+                      </div>
+                    </form>`
 
   // Dialog items configuration.
-  cancelBtn = dialog.querySelector(".cancel");
-  editBtn = dialog.querySelector(".edit");
-  projectName = dialog.querySelector("#project-name");
+  let cancelBtn = dialog.querySelector(".cancel");
+  let editBtn = dialog.querySelector(".edit");
+  let projectName = dialog.querySelector("#project-name");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
@@ -158,16 +149,7 @@ export function setDialogProjectId(id) {
 }
 
 export function showCreateTodoDialog() {
-
   removeDialog();
-
-  let cancelBtn;
-  let createBtn;
-
-  let todoTitle;
-  let todoDescription;
-  let todoDueDate;
-  let todoPriority;
 
   const main = document.querySelector("main");  
   const dialog = document.createElement("dialog");
@@ -240,8 +222,8 @@ export function showCreateTodoDialog() {
     todoPriority: dialog.querySelector("#todo-priority")
   };
   
-  cancelBtn = dialog.querySelector(".cancel");
-  createBtn = dialog.querySelector(".create");
+  let cancelBtn = dialog.querySelector(".cancel");
+  let createBtn = dialog.querySelector(".create");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
@@ -265,7 +247,7 @@ export function showCreateTodoDialog() {
     );
 
     TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
-    TodoManager.addTodo(LocalStorage.getCurrentProjectId(), todo);
+    TodoManager.addProjectTodo(LocalStorage.getCurrentProjectId(), todo);
     Todo.createCard(todo);
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
     LocalStorage.updateProjects();
