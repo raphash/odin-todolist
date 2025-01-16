@@ -20,6 +20,10 @@ export function getProjectCount() {
   return 0;
 }
 
+export function isProjectsEmpty() {
+  return getProjectCount() < 1;
+}
+
 // Update all projects saved in localStorage based on ProjectManager
 export function updateProjects() {
   localStorage.setItem("projects", JSON.stringify(ProjectManager.getProjects()));

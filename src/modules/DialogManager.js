@@ -5,7 +5,7 @@ import * as DateFormat from "./DateFormat.js";
 import * as TodoManager from "./TodoManager.js";
 import * as Todo from "../components/Todo.js";
 
-export function hideDialog() {
+export function removeDialog() {
   let dialog = document.querySelector("dialog");
 
   if (dialog) dialog.remove();
@@ -14,10 +14,10 @@ export function hideDialog() {
 export function showCreateProject() {
 
   // Dialog configuration.
-  hideDialog();
+  removeDialog();
 
   let cancelBtn;
-  let editBtn;
+  let createBtn;
   let projectName;
 
   const main = document.querySelector("main");  
@@ -58,16 +58,16 @@ export function showCreateProject() {
 
   // Dialog items configuration.
   cancelBtn = dialog.querySelector(".cancel");
-  editBtn = dialog.querySelector(".create");
+  createBtn = dialog.querySelector(".create");
   projectName = dialog.querySelector("#project-name");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    hideDialog();
+    removeDialog();
     dialog.close();
   });
 
-  editBtn.addEventListener("click", (e)=>{
+  createBtn.addEventListener("click", (e)=>{
     if (projectName.value) {
       ProjectManager.addProject(Project.createProject(projectName.value));
       LocalStorage.updateProjects();
@@ -79,7 +79,7 @@ export function showCreateProject() {
 export function showEditProject() {
 
   // Dialog configuration.
-  hideDialog();
+  removeDialog();
 
   let cancelBtn;
   let editBtn;
@@ -126,26 +126,26 @@ export function showEditProject() {
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    hideDialog();
+    removeDialog();
   });
 
   editBtn.addEventListener("click", (e)=>{
     e.preventDefault();
 
+    // Update project title, view and header.
     ProjectManager.setProjectTitle(getDialogProjectId(), projectName.value);
-
-    LocalStorage.updateProjects(); 
+    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId()); 
     ProjectManager.updateProjectsView();
 
-    hideDialog();
+    removeDialog();
   });
 
   main.appendChild(dialog);
 }
 
-export function seActiveProjectName(newName) {
+export function setEditDialogInfo(name) {
   const projectName = document.querySelector("dialog #project-name");
-  projectName.value = newName;
+  projectName.value = name;
 }
 
 export function getDialogProjectId() {
@@ -160,7 +160,7 @@ export function setDialogProjectId(id) {
 export function showCreateTodo() {
 
   // Dialog configuration.
-  hideDialog();
+  removeDialog();
 
   let cancelBtn;
   let createBtn;
@@ -246,7 +246,7 @@ export function showCreateTodo() {
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    hideDialog();
+    removeDialog();
     dialog.close();
   });
 
@@ -265,7 +265,8 @@ export function showCreateTodo() {
       info["todoPriority"].value
     );
 
-    TodoManager.addTodo(LocalStorage.getCurrentProjectId(),  todo);
+    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
+    TodoManager.addTodo(LocalStorage.getCurrentProjectId(), todo);
     TodoManager.createTodoCard(todo);
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
     LocalStorage.updateProjects();

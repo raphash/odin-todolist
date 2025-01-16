@@ -40,27 +40,22 @@ export function renderProjectCard(project) {
     e.stopPropagation();
 
     LocalStorage.saveCurrentProjectId(projectId);
-    TodoManager.setCurrentProjectViewTitle(projectId);
-    
-    TodoManager.updateTodos(projectId);
-    TodoManager.updateTodosView();
-
-    TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
+    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
+    TodoManager.updateTodosView(projectId);
   });
   
   deleteBtn.addEventListener("click", (e)=>{
     e.stopPropagation();
 
-    TodoManager.setCurrentProjectViewTitle(projectId);
+    // Clear copied todos and todos view.
     TodoManager.clearTodos();
     TodoManager.clearTodosView();
 
     ProjectManager.removeProject(project);
-    
-    TodoManager.updateTodos(projectId);
-    TodoManager.updateTodosView();
-    
-    LocalStorage.updateProjects();
+    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
+
+    TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
+    TodoManager.updateTodosView(LocalStorage.getCurrentProjectId());
     ProjectManager.updateProjectsView();
   });
 
@@ -68,7 +63,7 @@ export function renderProjectCard(project) {
     e.stopPropagation();
 
     DialogManager.showEditProject();
-    DialogManager.seActiveProjectName(project.title);
+    DialogManager.setEditDialogInfo(project.title);
     DialogManager.setDialogProjectId(project.id);
   });
 }
