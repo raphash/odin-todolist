@@ -16,6 +16,7 @@ export function createProject(title) {
 export function renderProjectCard(project) {
   let deleteBtn;
   let editBtn;
+  let projectId;
   
   const projects = document.querySelector(".projects");
   const projectCard = document.createElement("div");
@@ -32,22 +33,33 @@ export function renderProjectCard(project) {
 
   deleteBtn = projectCard.querySelector(".delete-project");
   editBtn = projectCard.querySelector(".edit-project");
+  projectId = projectCard.getAttribute("data-id");
 
   // User projectCard interface interaction listeners.
   projectCard.addEventListener("click", (e)=>{
     e.stopPropagation();
 
-    const projectId = projectCard.getAttribute("data-id");
-
     LocalStorage.saveCurrentProjectId(projectId);
     TodoManager.setCurrentProjectViewTitle(projectId);
+    
+    TodoManager.updateTodos(projectId);
+    TodoManager.updateTodosView();
+
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
   });
   
   deleteBtn.addEventListener("click", (e)=>{
     e.stopPropagation();
 
+    TodoManager.setCurrentProjectViewTitle(projectId);
+    TodoManager.clearTodos();
+    TodoManager.clearTodosView();
+
     ProjectManager.removeProject(project);
+    
+    TodoManager.updateTodos(projectId);
+    TodoManager.updateTodosView();
+    
     LocalStorage.updateProjects();
     ProjectManager.updateProjectsView();
   });

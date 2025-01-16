@@ -1,6 +1,7 @@
 import * as Project from "../components/Project.js";
 import * as DialogManager from "./DialogManager.js";
 import * as LocalStorage from "./LocalStorage.js";
+import * as TodoManager from "./TodoManager.js";
 
 const projects = [];
 
@@ -11,6 +12,7 @@ export function initialSetup() {
     addProject(project);
     LocalStorage.saveCurrentProjectId(project.id);
     LocalStorage.updateProjects();
+    TodoManager.updateTodosView();
     updateProjectsView();
   }
 }
@@ -41,6 +43,8 @@ export function getProject(id) {
       return project;
     }
   }
+
+  return 0;
 }
 
 // Adds all localStorage projects to projects array

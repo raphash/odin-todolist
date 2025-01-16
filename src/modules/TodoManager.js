@@ -36,9 +36,16 @@ export function getTodos() {
   return todos;
 }
 
+// Sets the header title.
 export function setCurrentProjectViewTitle(projectId) {
   const title = document.querySelector(".currentProject .title");
-        title.textContent = ProjectManager.getProject(projectId).title;
+
+  if (!ProjectManager.getProject(projectId)) {
+    title.textContent = "None";
+    return;
+  }
+
+  title.textContent = ProjectManager.getProject(projectId).title;
 }
 
 export function createTodoCard(todo) {
@@ -63,6 +70,22 @@ export function createTodoCard(todo) {
                         </div>`
 
   todos.appendChild(todoCard);
+}
+
+export function clearTodosView() {
+  const todos = document.querySelector(".todos");
+        todos.innerHTML = "";
+}
+
+// Render all todos in html.
+export function updateTodosView() {
+  clearTodosView();
+
+  if (todos.length > 0) {
+    for (const todo of todos) {
+      createTodoCard(todo);
+    }
+  }
 }
 
 const TodoManager = (function() {
