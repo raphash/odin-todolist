@@ -1,6 +1,8 @@
 import * as ProjectManager from "../modules/ProjectManager.js";
 import * as LocalStorage from "../modules/LocalStorage.js";
 import * as DialogManager from "../modules/DialogManager.js";
+import * as TodoManager from "../modules/TodoManager.js";
+
 import uniqid from 'uniqid';
 
 export function createProject(title) {
@@ -30,6 +32,14 @@ export function renderProjectCard(project) {
 
   deleteBtn = projectCard.querySelector(".delete-project");
   editBtn = projectCard.querySelector(".edit-project");
+
+  projectCard.addEventListener("click", (e)=>{
+    e.stopPropagation();
+
+    const projectId = projectCard.getAttribute("data-id");
+
+    TodoManager.updateTodos(projectId);
+  });
   
   deleteBtn.addEventListener("click", (e)=>{
     e.stopPropagation();
