@@ -39,10 +39,14 @@ main .content {
   background-color: var(--bg-blue);
 }
 
-box-icon:hover {
-  color: red;
-  scale: 1.05;
-  opacity: 0.75;
+main box-icon {
+  scale: 0.8;
+  transition: all 0.1s ease;
+}
+
+main box-icon:hover {
+  scale: 0.9;
+  opacity: 0.8;
 }
 
 .sidebar {
@@ -63,19 +67,9 @@ box-icon:hover {
   justify-self: end;
 }
 
-.sidebar .separator {
-  color: var(--fg-white);
-  font-size: 1.2rem;
-  font-family: "Inter-Bold";
-  padding: .5rem;
-  border-bottom: 1px solid var(--bg-gray);
-  user-select: none;
-}
-
 .sidebar .projects {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: 32px;
   align-content: flex-start;
   padding: .5rem;
   gap: .5rem;
@@ -86,15 +80,14 @@ box-icon:hover {
   grid-template-columns: 1fr max-content;
   align-items: center;
   gap: .5rem;
-  padding: 0 .15rem 0 .25rem;
+  padding: .25rem;
   color: var(--fg-white);
-  border: 1px solid #64748b;
+  transition: all 0.3s ease;
 }
 
 .sidebar .project .buttons {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: .15rem;
   align-items: center;
 }
 
@@ -107,6 +100,14 @@ box-icon:hover {
   white-space: nowrap;
   user-select: none;
   text-transform: capitalize;
+}
+
+dialog[open] box-icon {
+  scale: 1;
+}
+
+dialog[open] box-icon:hover {
+  opacity: 0.8;
 }
 
 .project-dialog[open] {
@@ -238,16 +239,13 @@ box-icon:hover {
 }
 
 .content .currentProject .title {
+  font-family: "Inter-Bold";
   max-width: 125px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   user-select: none;
   text-transform: capitalize;
-}
-
-.content .currentProject .icon {
-  scale: 0.75;
 }
 
 .todo-dialog[open] {
@@ -449,7 +447,6 @@ box-icon:hover {
   align-self: end;
   display: grid;
   grid-template-columns: repeat(2, max-content);
-  gap: .15rem;
 }
 
 .high-priority {

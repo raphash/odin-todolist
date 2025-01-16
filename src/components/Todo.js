@@ -20,8 +20,8 @@ export function createCard(todo) {
                             <time datetime="${todo.dueDate}">${todo.dueDate}</time>
                           </p>
                           <div class="buttons">
-                            <box-icon name='edit' color="#6fed72" class="edit-todo"></box-icon>
-                            <box-icon name='trash-alt' color="#5c73f6" class="delete-todo"></box-icon>
+                            <box-icon name='edit' color="#5c73f6" class="edit-todo"></box-icon>
+                            <box-icon name='trash-alt' color="#f65c5c" class="delete-todo"></box-icon>
                           </div>
                         </div>`
 

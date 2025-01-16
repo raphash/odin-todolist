@@ -17,8 +17,8 @@ export function createCard(project) {
         
   projectCard.innerHTML = `<p class="title">${project.title}</p>          
                           <div class="buttons">
-                            <box-icon name='edit' color="#6fed72" class="edit-project"></box-icon>
-                            <box-icon name='trash-alt' color="#5c73f6" class="delete-project"></box-icon>
+                            <box-icon name='edit' color="#5c73f6" class="edit-project"></box-icon>
+                            <box-icon name='trash-alt' color="#f65c5c" class="delete-project"></box-icon>
                           </div>`;
 
   projects.appendChild(projectCard);

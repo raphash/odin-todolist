@@ -157,8 +157,7 @@ export function showCreateTodoDialog() {
         dialog.classList.add("todo-dialog");
   
   dialog.innerHTML = `<div class="header">
-                      <box-icon type="solid" 
-                                name="package"
+                      <box-icon name="task"
                                 size="md"
                                 color="#5c73f6"></box-icon>
                       

@@ -19,15 +19,15 @@ function createInitialProject() {
   ));
 
   TodoManager.addProjectTodo(project.id, Todo.createTodo(
-    "Some Task",
-    "Some Description ...",
+    "Another Some Task",
+    "Some Some Description ...",
     "2025-02-01",
     "medium-priority"
   ));
 
   TodoManager.addProjectTodo(project.id, Todo.createTodo(
-    "Some Task",
-    "Some Description ...",
+    "Another Some Cool Task",
+    "Another Some Cool Description ...",
     "2025-03-01",
     "high-priority"
   ));
