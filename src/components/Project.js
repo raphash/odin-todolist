@@ -62,7 +62,7 @@ export function renderProjectCard(project) {
   editBtn.addEventListener("click", (e)=>{
     e.stopPropagation();
 
-    DialogManager.showEditProject();
+    DialogManager.showEditProjectDialog();
     DialogManager.setEditDialogInfo(project.title);
     DialogManager.setDialogProjectId(project.id);
   });

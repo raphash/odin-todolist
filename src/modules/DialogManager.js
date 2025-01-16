@@ -11,7 +11,7 @@ export function removeDialog() {
   if (dialog) dialog.remove();
 }
 
-export function showCreateProject() {
+export function showCreateProjectDialog() {
 
   // Dialog configuration.
   removeDialog();
@@ -76,7 +76,7 @@ export function showCreateProject() {
   });
 }
 
-export function showEditProject() {
+export function showEditProjectDialog() {
 
   // Dialog configuration.
   removeDialog();
@@ -157,9 +157,8 @@ export function setDialogProjectId(id) {
   dialog.setAttribute("data-id", id);
 }
 
-export function showCreateTodo() {
+export function showCreateTodoDialog() {
 
-  // Dialog configuration.
   removeDialog();
 
   let cancelBtn;

@@ -121,6 +121,6 @@ const TodoManager = (function() {
   const addTodoBtn = document.querySelector(".add-todo");
   
   addTodoBtn.addEventListener("click", ()=>{
-    DialogManager.showCreateTodo();
+    DialogManager.showCreateTodoDialog();
   });
 })();

@@ -22,7 +22,6 @@ export function initialSetup() {
 
     LocalStorage.saveCurrentProjectId(project.id); // Sets project as current project
     LocalStorage.updateProjects();
-
   }
 
   updateProjects();
@@ -43,6 +42,7 @@ export function removeProject(targetProject) {
   }
 }
 
+// Modify an existing project title.
 export function setProjectTitle(id, title) {
   for (const project of getProjects()) {
     if (project.id == id) {
@@ -78,10 +78,12 @@ export function isProjectsEmpty() {
   return projects.length < 1;
 }
 
+// Clear temporary array.
 export function clearProjects() {
   projects.splice(0, projects.length);
 }
 
+// Remove all html project elements.
 export function clearProjectsView() {
   const projectsEl = document.querySelector(".projects");
   projectsEl.innerHTML = "";
@@ -102,6 +104,6 @@ const ProjectManager = (function(){
   const addProject = document.querySelector(".add-project");
   
   addProject.addEventListener("click", ()=>{
-    DialogManager.showCreateProject();
+    DialogManager.showCreateProjectDialog();
   });
 })();
