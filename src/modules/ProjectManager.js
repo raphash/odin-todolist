@@ -7,21 +7,39 @@ import * as DateFormat from "./DateFormat.js";
 
 const projects = [];
 
+function createInitialProject() {
+  const project = Project.createProject("Default");
+    
+  addProject(project);
+
+  TodoManager.addTodo(project.id, Todo.createTodo(
+    "Some Task",
+    "Some Description ...",
+    "2025-01-01",
+    "low-priority"
+  ));
+
+  TodoManager.addTodo(project.id, Todo.createTodo(
+    "Some Task",
+    "Some Description ...",
+    "2025-02-01",
+    "medium-priority"
+  ));
+
+  TodoManager.addTodo(project.id, Todo.createTodo(
+    "Some Task",
+    "Some Description ...",
+    "2025-03-01",
+    "high-priority"
+  ));
+
+  LocalStorage.saveCurrentProjectId(project.id); // Sets project as current project
+  LocalStorage.updateProjects();
+}
+
 export function initialSetup() {
   if (LocalStorage.isProjectsEmpty()) {
-    const project = Project.createProject("Default");
-    
-    addProject(project);
-
-    TodoManager.addTodo(project.id, Todo.createTodo(
-      "Example Task",
-      "Example Description ...",
-      DateFormat.getFullDate(),
-      "low-priority"
-    ));
-
-    LocalStorage.saveCurrentProjectId(project.id); // Sets project as current project
-    LocalStorage.updateProjects();
+    createInitialProject();
   }
 
   updateProjects();
