@@ -37,7 +37,7 @@ export function removeProjectTodo(projectId, todoId) {
   const projectTodos = project.todos;
 
   if (project) {
-    for (const todo of projectTodos) {
+    for (const todo of project.todos) {
       if (todo.id == todoId) {
         project["todos"].splice(projectTodos.indexOf(todo), 1);
       }
@@ -47,10 +47,9 @@ export function removeProjectTodo(projectId, todoId) {
 
 export function editProjectTodo(projectId, todoId, { title, description, dueDate, priority }) {
   const project = ProjectManager.getProject(projectId);
-  const projectTodos = project.todos;
 
   if (project) {
-    for (const todo of projectTodos) {
+    for (const todo of project.todos) {
       if (todo.id == todoId) {
         todo.title = title;
         todo.description = description;
@@ -122,10 +121,8 @@ export function updateTodosView(projectId) {
   clearTodosView();
   updateTodos(projectId);
 
-  if (todos.length > 0) {
-    for (const todo of todos) {
-      Todo.createCard(todo);
-    }
+  if (todos.length) {
+    todos.map(todo => Todo.createCard(todo));
   }
 }
 
