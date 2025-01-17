@@ -20,7 +20,7 @@ function createInitialProject() {
 
   TodoManager.addProjectTodo(project.id, Todo.createTodo(
     "Another Some Task",
-    "Some Some Description ...",
+    "Another Some Description ...",
     "2025-02-01",
     "medium-priority"
   ));
@@ -72,17 +72,6 @@ export function getProject(projectId) {
   for (const project of projects) {
     if (project.id == projectId) {
       return project;
-    }
-  }
-  return null;
-}
-
-export function getProjectFromTodoId(todoId) {
-  for (const project of projects) {
-    for (const todo of project.todos) {
-      if (todo.id == todoId) {
-        return project;
-      }
     }
   }
   return null;
