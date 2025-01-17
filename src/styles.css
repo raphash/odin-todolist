@@ -28,6 +28,11 @@ body {
   height: 100vh;
 }
 
+body:has(dialog[open]) .sidebar,
+body:has(dialog[open]) .content {
+  filter: blur(4px);
+}
+
 main {
   display: grid;
   grid-template-columns: 275px 1fr;
@@ -101,123 +106,6 @@ main box-icon:hover {
   text-transform: capitalize;
 }
 
-body:has(dialog[open]) .sidebar,
-body:has(dialog[open]) .content {
-  filter: blur(4px);
-}
-
-dialog[open] box-icon {
-  scale: 1;
-}
-
-dialog[open] box-icon:hover {
-  opacity: 0.8;
-}
-
-.project-dialog[open] {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  align-items: center;
-  width: 500px;
-  height: 350px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  border: none;
-  padding: 2rem;
-  gap: 1rem;
-  color: var(--fg-white);
-  border: 1px solid var(--bg-gray);
-  background-color: var(--fg-blue);
-}
-
-.project-dialog[open] .header {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr repeat(2, max-content);
-  justify-items: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.project-dialog[open] .title {
-  margin-top: 1rem;
-  font-family: "Inter-Medium";
-}
-
-.project-dialog[open] .subtitle {
-  width: 75%;
-  color: var(--bg-gray);
-  text-align: center;
-}
-
-.project-dialog[open] form {
-  height: 100%;
-  grid-row: 2 / 3;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, max-content);
-  align-items: center;
-  gap: .75rem;
-}
-
-.project-dialog[open] form label {
-  font-family: "Inter-Medium";
-}
-
-.project-dialog[open] form .row {
-  display: grid;
-  grid-template-rows: repeat(2, max-content);
-  gap: .75rem;
-}
-
-.project-dialog[open] input {
-  font-family: inherit;
-  width: 100%;
-  padding: .25rem 0 .25rem .25rem;
-  border: none;
-  border-radius: 4px;
-  padding: .5rem;
-  outline: 1px solid var(--bg-gray);
-  color: var(--fg-white);
-  background-color: var(--fg-blue);
-  appearance: none;
-}
-
-.project-dialog[open] .buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: .75rem;
-}
-
-.project-dialog[open] button {
-  font-family: "Inter-Bold";
-  padding: .5rem;
-  border: none;
-  border-radius: 4px;
-  appearance: none;
-}
-
-.project-dialog[open] button:hover {
-  background-image: linear-gradient(rgb(0 0 0 / 45%) 0 0);
-}
-
-.project-dialog[open] .cancel {
-  color: var(--fg-white);
-  background-color: var(--bg-gray);
-}
-
-.project-dialog[open] .create {
-  color: var(--fg-white);
-  background-color: var(--fg-lightblue);
-}
-
-.project-dialog[open] .edit {
-  color: var(--fg-white);
-  background-color: var(--fg-lightred);
-}
-
 .content {
   display: grid;
   grid-template-columns: 1fr;
@@ -252,12 +140,11 @@ dialog[open] box-icon:hover {
   text-transform: capitalize;
 }
 
-.todo-dialog[open] {
+dialog[open] {
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   align-items: center;
   width: 500px;
-  height: 600px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -272,7 +159,15 @@ dialog[open] box-icon:hover {
   scrollbar-width: none;
 }
 
-.todo-dialog[open] .header {
+dialog[open] box-icon {
+  scale: 1;
+}
+
+dialog[open] box-icon:hover {
+  opacity: 0.8;
+}
+
+dialog[open] .header {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr repeat(2, max-content);
@@ -281,79 +176,82 @@ dialog[open] box-icon:hover {
   gap: 1rem;
 }
 
-.todo-dialog[open] .title {
+dialog[open] .title {
   margin-top: 1rem;
   font-family: "Inter-Medium";
 }
 
-.todo-dialog[open] form {
-  height: 100%;
-  grid-row: 2 / 3;
-  display: grid;
-  align-items: center;
-  gap: 1rem;
-}
-
-.todo-dialog[open] form label {
-  font-family: "Inter-Medium";
-  font-size: .85rem;
-}
-
-.todo-dialog[open] form .row {
-  display: grid;
-  grid-template-rows: repeat(2, max-content);
-  gap: .75rem;
-}
-
-.todo-dialog[open] .inputs {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: .75rem;
-}
-
-.todo-dialog[open] input {
-  font-family: inherit;
-  width: 100%;
-  padding: .25rem 0 .25rem .25rem;
-  border: none;
-  border-radius: 4px;
-  padding: .5rem;
-  outline: 1px solid var(--bg-gray);
-  color: var(--fg-white);
-  background-color: var(--fg-blue);
-  appearance: none;
-}
-
-.todo-dialog[open] select {
-  font-family: inherit;
-  width: 100%;
-  padding: .25rem 0 .25rem .25rem;
-  border: none;
-  border-radius: 4px;
-  padding: .5rem;
-  outline: 1px solid var(--bg-gray);
-  color: var(--fg-white);
-  background-color: var(--fg-blue);
-  appearance: none;
-}
-
-.todo-dialog[open] ::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
-
-.todo-dialog[open] .subtitle {
+dialog[open] .subtitle {
   width: 75%;
   color: var(--bg-gray);
   text-align: center;
 }
 
-.todo-dialog[open] .buttons {
+dialog[open] .cancel {
+  color: var(--fg-white);
+  background-color: var(--bg-gray);
+}
+
+dialog[open] .create {
+  color: var(--fg-white);
+  background-color: var(--fg-lightblue);
+}
+
+dialog[open] .edit {
+  color: var(--fg-white);
+  background-color: var(--fg-lightred);
+}
+
+dialog[open] form label {
+  font-family: "Inter-Medium";
+}
+
+dialog[open] form .row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, max-content);
   gap: .75rem;
 }
 
-.todo-dialog[open] button {
+dialog[open] input,
+dialog[open] textarea,
+dialog[open] select {
+  font-family: inherit;
+  width: 100%;
+  height: 34px;
+  min-height: 34px;
+  padding: .25rem 0 .25rem .25rem;
+  border: none;
+  border-radius: 4px;
+  padding: .5rem;
+  outline: 1px solid var(--bg-gray);
+  color: var(--fg-white);
+  background-color: var(--fg-blue);
+  appearance: none;
+  scrollbar-width: none;
+}
+
+dialog[open] select:has(option[value="low-priority"]:checked) {
+  outline-color: var(--priority-low);
+}
+
+dialog[open] select:has(option[value="medium-priority"]:checked) {
+  outline-color: var(--priority-medium);
+}
+
+dialog[open] select:has(option[value="high-priority"]:checked) {
+  outline-color: var(--priority-high);
+}
+
+dialog[open] textarea {
+  resize: vertical;
+}
+
+dialog[open] form label {
+  font-family: "Inter-Medium";
+  font-size: .85rem;
+}
+
+dialog[open] button {
   font-family: "Inter-Bold";
   padding: .5rem;
   border: none;
@@ -361,23 +259,57 @@ dialog[open] box-icon:hover {
   appearance: none;
 }
 
-.todo-dialog[open] button:hover {
+dialog[open] button:hover {
   background-image: linear-gradient(rgb(0 0 0 / 45%) 0 0);
 }
 
-.todo-dialog[open] .cancel {
-  color: var(--fg-white);
-  background-color: var(--bg-gray);
+dialog[open] .inputs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .75rem;
 }
 
-.todo-dialog[open] .create {
-  color: var(--fg-white);
-  background-color: var(--fg-lightblue);
+dialog[open] .buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .75rem;
 }
 
-.todo-dialog[open] .edit {
-  color: var(--fg-white);
-  background-color: var(--fg-lightred);
+dialog[open] ::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+dialog[open] form {
+  display: grid;
+  height: 100%;
+  grid-row: 2 / 3;
+  gap: 1rem;
+}
+
+.project-dialog[open] {
+  height: 350px;
+}
+
+.project-dialog[open] form {
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, max-content);
+  gap: .75rem;
+}
+
+.todo-dialog[open] {
+  height: 600px;
+}
+
+.todo-dialog[open] form {
+  align-items: center;
+}
+
+.view-dialog[open] {
+  height: 600px;
+}
+
+.view-dialog[open] .buttons {
+  grid-template-columns: 1fr;
 }
 
 .todos {
@@ -465,149 +397,4 @@ dialog[open] box-icon:hover {
 
 .low-priority {
   border-color: var(--priority-low);
-}
-
-.view-dialog[open] {
-  display: grid;
-  grid-template-rows: repeat(2, 1fr);
-  align-items: center;
-  width: 500px;
-  height: 600px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  border: none;
-  padding: 2rem;
-  gap: 1rem;
-  color: var(--fg-white);
-  border: 1px solid var(--bg-gray);
-  background-color: var(--fg-blue);
-  overflow: scroll;
-  scrollbar-width: none;
-}
-
-.view-dialog[open] .header {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr repeat(2, max-content);
-  justify-items: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.view-dialog[open] .title {
-  margin-top: 1rem;
-  font-family: "Inter-Medium";
-}
-
-.view-dialog[open] form {
-  height: 100%;
-  grid-row: 2 / 3;
-  display: grid;
-  align-items: center;
-  gap: 1rem;
-}
-
-.view-dialog[open] form label {
-  font-family: "Inter-Medium";
-  font-size: .85rem;
-}
-
-.view-dialog[open] form .row {
-  display: grid;
-  grid-template-rows: repeat(2, max-content);
-  gap: .75rem;
-}
-
-.view-dialog[open] .inputs {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: .75rem;
-}
-
-.view-dialog[open] input {
-  font-family: inherit;
-  width: 100%;
-  padding: .25rem 0 .25rem .25rem;
-  border: none;
-  border-radius: 4px;
-  padding: .5rem;
-  outline: 1px solid var(--bg-gray);
-  color: var(--fg-white);
-  background-color: var(--fg-blue);
-  appearance: none;
-}
-
-.view-dialog[open] textarea {
-  width: 100%;
-  height: 34px;
-  min-height: 34px;
-  font-family: inherit;
-  border: none;
-  border-radius: 4px;
-  padding: .5rem;
-  outline: 1px solid var(--bg-gray);
-  color: var(--fg-white);
-  background-color: var(--fg-blue);
-  appearance: none;
-  resize: vertical;
-  scrollbar-width: none;
-}
-
-.view-dialog[open] select {
-  font-family: inherit;
-  width: 100%;
-  border: none;
-  border-radius: 4px;
-  padding: .5rem;
-  outline: 1px solid var(--bg-gray);
-  color: var(--fg-white);
-  background-color: var(--fg-blue);
-  appearance: none;
-}
-
-.view-dialog[open] ::-webkit-calendar-picker-indicator {
-  filter: invert(1);
-}
-
-.view-dialog[open] .subtitle {
-  width: 75%;
-  color: var(--bg-gray);
-  text-align: center;
-}
-
-.view-dialog[open] .buttons {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: .75rem;
-}
-
-.view-dialog[open] button {
-  justify-self: center;
-  width: 216px;
-  font-family: "Inter-Bold";
-  padding: .5rem;
-  border: none;
-  border-radius: 4px;
-  appearance: none;
-}
-
-.view-dialog[open] button:hover {
-  background-image: linear-gradient(rgb(0 0 0 / 45%) 0 0);
-}
-
-.view-dialog[open] .cancel {
-  color: var(--fg-white);
-  background-color: var(--bg-gray);
-}
-
-.view-dialog[open] .create {
-  color: var(--fg-white);
-  background-color: var(--fg-lightblue);
-}
-
-.view-dialog[open] .edit {
-  color: var(--fg-white);
-  background-color: var(--fg-lightred);
 }
