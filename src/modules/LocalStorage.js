@@ -15,8 +15,7 @@ export function getProjects() {
 export function getProjectCount() {
   if (localStorage.getItem("projects")) {
     return JSON.parse(localStorage.getItem("projects")).length;
-  } 
-  return 0;
+  }
 }
 
 export function isProjectsEmpty() {
@@ -25,5 +24,7 @@ export function isProjectsEmpty() {
 
 // Update all projects saved in localStorage based on ProjectManager
 export function updateProjects() {
-  localStorage.setItem("projects", JSON.stringify(ProjectManager.getProjects()));
+  localStorage.setItem("projects", JSON.stringify(
+    ProjectManager.getProjects()
+  ));
 }
