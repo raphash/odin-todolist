@@ -23,9 +23,9 @@ export function createCard(project) {
 
   projects.appendChild(projectCard);
 
-  let deleteBtn = projectCard.querySelector(".delete-project");
-  let editBtn = projectCard.querySelector(".edit-project");
-  let projectId = projectCard.getAttribute("data-id");
+  const deleteBtn = projectCard.querySelector(".delete-project");
+  const editBtn = projectCard.querySelector(".edit-project");
+  const projectId = projectCard.getAttribute("data-id");
 
   // User projectCard interface interaction listeners.
   projectCard.addEventListener("click", (e)=>{

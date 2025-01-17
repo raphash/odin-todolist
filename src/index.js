@@ -3,4 +3,8 @@ import "boxicons";
 
 import * as ProjectManager from "./modules/ProjectManager.js";
 
-ProjectManager.initialSetup();
+const app = (function(){
+  document.addEventListener("DOMContentLoaded", ()=>{
+    ProjectManager.initialSetup();
+  });
+})();
