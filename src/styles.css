@@ -101,6 +101,11 @@ main box-icon:hover {
   text-transform: capitalize;
 }
 
+body:has(dialog[open]) .sidebar,
+body:has(dialog[open]) .content {
+  filter: blur(4px);
+}
+
 dialog[open] box-icon {
   scale: 1;
 }
