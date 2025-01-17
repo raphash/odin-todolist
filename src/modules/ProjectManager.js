@@ -4,7 +4,7 @@ import * as LocalStorage from "./LocalStorage.js";
 import * as TodoManager from "./TodoManager.js";
 import * as Todo from "../components/Todo.js";
 
-const projects = [];
+let projects = [];
 
 function createInitialProject() {
   const project = Project.createProject("Default");
@@ -52,11 +52,7 @@ export function addProject(project) {
 }
 
 export function removeProject(targetProject) {
-  for (const project of projects) {
-    if (project.id == targetProject.id) {
-      projects.splice(projects.indexOf(project), 1);
-    }
-  }
+  projects = projects.filter(project => project.id != targetProject.id);
 }
 
 // Modify an existing project title
@@ -69,21 +65,13 @@ export function setProjectTitle(projectId, title) {
 }
 
 export function getProject(projectId) {
-  for (const project of projects) {
-    if (project.id == projectId) {
-      return project;
-    }
-  }
-  return null;
+  return projects.find(project => project.id == projectId);
 }
 
 // Adds all localStorage projects to projects array
 export function updateProjects() {
   clearProjects();
-
-  for (const project of LocalStorage.getProjects()) {
-    addProject(project);
-  }
+  projects = projects.concat(LocalStorage.getProjects());
 }
 
 export function getProjects() {
@@ -108,12 +96,8 @@ export function clearProjectsView() {
 // Update all projects components based on localStorage
 export function updateProjectsView() {
   clearProjectsView();
-
   LocalStorage.updateProjects();
-
-  for (const project of LocalStorage.getProjects()) {
-    Project.createCard(project);
-  }
+  LocalStorage.getProjects().map(project => Project.createCard(project));
 }
 
 const ProjectManager = (function(){
