@@ -70,9 +70,8 @@ main box-icon:hover {
 .sidebar .projects {
   display: grid;
   grid-template-columns: 1fr;
-  align-content: flex-start;
+  align-content: start;
   padding: .5rem;
-  gap: .5rem;
 }
 
 .sidebar .project {

@@ -26,6 +26,25 @@ export function addProjectTodo(projectId, todo) {
   };
 }
 
+export function getProjectTodos(projectId) {
+  const project = ProjectManager.getProject(projectId);
+  if (project) return project.todos;
+}
+
+// Remove todo from project id and todoId.
+export function removeProjectTodo(projectId, todoId) {
+  const project = ProjectManager.getProject(projectId);
+  const projectTodos = project.todos;
+
+  if (project) {
+    for (const todo of projectTodos) {
+      if (todo.id == todoId) {
+        project["todos"].splice(projectTodos.indexOf(todo), 1);
+      }
+    }
+  }
+}
+
 // Clear all temporary saved todos.
 export function clearTodos() {
   todos.splice(0, todos.length);
