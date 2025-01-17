@@ -60,18 +60,29 @@ export function removeProject(targetProject) {
 }
 
 // Modify an existing project title
-export function setProjectTitle(id, title) {
+export function setProjectTitle(projectId, title) {
   for (const project of getProjects()) {
-    if (project.id == id) {
+    if (project.id == projectId) {
       project.title = title;
     }
   }
 }
 
-export function getProject(id) {
+export function getProject(projectId) {
   for (const project of projects) {
-    if (project.id == id) {
+    if (project.id == projectId) {
       return project;
+    }
+  }
+  return null;
+}
+
+export function getProjectFromTodoId(todoId) {
+  for (const project of projects) {
+    for (const todo of project.todos) {
+      if (todo.id == todoId) {
+        return project;
+      }
     }
   }
   return null;

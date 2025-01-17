@@ -56,6 +56,6 @@ export function createCard(project) {
 
     DialogManager.showEditProjectDialog();
     DialogManager.setEditDialogInfo(project.title);
-    DialogManager.setDialogProjectId(project.id);
+    DialogManager.setDialogTargetId(project.id);
   });
 }

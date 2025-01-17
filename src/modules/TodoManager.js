@@ -45,6 +45,22 @@ export function removeProjectTodo(projectId, todoId) {
   }
 }
 
+export function editProjectTodo(projectId, todoId, { title, description, dueDate, priority }) {
+  const project = ProjectManager.getProject(projectId);
+  const projectTodos = project.todos;
+
+  if (project) {
+    for (const todo of projectTodos) {
+      if (todo.id == todoId) {
+        todo.title = title;
+        todo.description = description;
+        todo.dueDate = dueDate;
+        todo.priority = priority;
+      }
+    }
+  }
+}
+
 // Clear all temporary saved todos.
 export function clearTodos() {
   todos.splice(0, todos.length);

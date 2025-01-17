@@ -143,7 +143,7 @@ export function getDialogProjectId() {
   return document.querySelector("dialog").getAttribute("data-id");
 }
 
-export function setDialogProjectId(id) {
+export function setDialogTargetId(id) {
   const dialog = document.querySelector("dialog");
   dialog.setAttribute("data-id", id);
 }
@@ -250,6 +250,110 @@ export function showCreateTodoDialog() {
     Todo.createCard(todo);
     TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
     LocalStorage.updateProjects();
+  });
+
+  main.appendChild(dialog);
+}
+
+export function showEditTodoDialog(targetTodo) {
+  removeDialog();
+
+  const main = document.querySelector("main");  
+  const dialog = document.createElement("dialog");
+        dialog.setAttribute("open", "open");
+        dialog.classList.add("todo-dialog");
+  
+  dialog.innerHTML = `<div class="header">
+                      <box-icon name="task"
+                                size="md"
+                                color="#f65c5c"></box-icon>
+                      
+                      <p class="title">Edit Todo</p>
+                      <p class="subtitle">
+                        Here you can edit a todo
+                        for this you need to select a title,
+                        description or due date, etc.
+                      </p>
+                    </div>
+
+                    <form method="dialog">
+                      <div class="inputs">
+                        <div class="row">
+                          <label for="todo-name">Todo</label>
+                          <input type="text"
+                                name="todo-name"
+                                id="todo-name"
+                                autocomplete="off"
+                                required>
+                        </div>
+
+                        <div class="row">
+                          <label for="todo-description">Description</label>
+                          <input type="text"
+                                name="todo-description"
+                                id="todo-description"
+                                autocomplete="off"
+                                required>
+                        </div>
+
+                        <div class="row">
+                          <label for="todo-dueDate">Due Date</label>
+                          <input type="date"
+                                  name="todo-dueDate"
+                                  id="todo-dueDate"
+                                  required>
+                        </div>
+
+                        <div class="row">
+                          <label for="todo-priority">Priority</label>
+                          <select name="todo-priority" id="todo-priority">
+                            <option value="low-priority">Low</option>
+                            <option value="medium-priority">Medium</option>
+                            <option value="high-priority">High</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="buttons">
+                        <button class="cancel">Cancel</button>
+                        <button class="edit">Edit</button>
+                      </div>
+                    </form>`
+
+  const info = {
+    todoTitle: dialog.querySelector("#todo-name"),
+    todoDescription: dialog.querySelector("#todo-description"),
+    todoDueDate: dialog.querySelector("#todo-dueDate"),
+    todoPriority: dialog.querySelector("#todo-priority")
+  };
+
+  let cancelBtn = dialog.querySelector(".cancel");
+  let editBtn = dialog.querySelector(".edit");
+
+  info["todoTitle"].value = targetTodo.title;
+  info["todoDescription"].value = targetTodo.description;
+  info["todoDueDate"].value = targetTodo.dueDate;
+  info["todoPriority"].value =targetTodo.priority;
+  
+  cancelBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    removeDialog();
+    dialog.close();
+  });
+
+  editBtn.addEventListener("click", ()=>{
+    const currentProjectId = LocalStorage.getCurrentProjectId();
+    
+    TodoManager.editProjectTodo(currentProjectId, targetTodo.id, {
+      title: info["todoTitle"].value,
+      description: info["todoDescription"].value,
+      dueDate: info["todoDueDate"].value,
+      priority: info["todoPriority"].value
+    });
+
+    TodoManager.updateTodos(currentProjectId);
+    LocalStorage.updateProjects();
+    TodoManager.updateTodosView()
   });
 
   main.appendChild(dialog);
