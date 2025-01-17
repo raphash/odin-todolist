@@ -25,7 +25,7 @@ export function createCard(todo) {
                             <time datetime="${todo.dueDate}">${todo.dueDate}</time>
                           </p>
                           <div class="buttons">
-                            <box-icon name='show' color="#a1a1aa" class="show-todo" title="View Todo"></box-icon>
+                            <box-icon name='show' color="#e2e8f0" class="view-todo" title="View Todo"></box-icon>
                             <box-icon name='edit' color="#5c73f6" class="edit-todo" title="Edit Todo"></box-icon>
                             <box-icon name='trash-alt' color="#f65c5c" class="delete-todo" title="Delete Todo"></box-icon>
                           </div>
@@ -33,6 +33,7 @@ export function createCard(todo) {
 
   const deleteTodoBtn = todoCard.querySelector(".delete-todo");
   const editTodoBtn = todoCard.querySelector(".edit-todo");
+  const viewTodoBtn = todoCard.querySelector(".view-todo");
   
   // Deletes the todoCard and update view and storage.
   deleteTodoBtn.addEventListener("click", ()=>{
@@ -46,6 +47,10 @@ export function createCard(todo) {
 
   editTodoBtn.addEventListener("click", ()=>{
     DialogManager.showEditTodoDialog(todo);
+  });
+
+  viewTodoBtn.addEventListener("click", ()=>{
+    DialogManager.showViewTodoDialog(todo);
   });
 
   todos.appendChild(todoCard);

@@ -4,6 +4,7 @@ import * as LocalStorage from "../modules/LocalStorage.js";
 import * as DateFormat from "./DateFormat.js";
 import * as TodoManager from "./TodoManager.js";
 import * as Todo from "../components/Todo.js";
+import * as Utils from "./Utils.js";
 
 export function removeDialog() {
   let dialog = document.querySelector("dialog");
@@ -355,6 +356,77 @@ export function showEditTodoDialog(targetTodo) {
     LocalStorage.updateProjects();
     TodoManager.updateTodosView()
   });
+
+  main.appendChild(dialog);
+}
+
+export function showViewTodoDialog(targetTodo) {
+
+  removeDialog();
+
+  const main = document.querySelector("main");
+  const dialog = document.createElement("dialog");
+        dialog.setAttribute("open", "open");
+        dialog.classList.add("view-dialog");
+
+  dialog.innerHTML = `<div class="header">
+                      <box-icon name="show"
+                                size="md"
+                                color="#f65c5c"></box-icon>
+                      
+                      <p class="title">View Todo</p>
+                      <p class="subtitle">
+                        Here you can view a view
+                        information better!
+                      </p>
+                    </div>
+
+                    <form method="dialog">
+                      <div class="inputs">
+                        <div class="row">
+                          <label for="todo-name">Todo</label>
+                          <input type="text"
+                                name="todo-name"
+                                id="todo-name"
+                                autocomplete="off"
+                                disabled>
+                        </div>
+
+                        <div class="row">
+                          <label for="todo-description">Description</label>
+                          <textarea name="todo-description"
+                                    id="todo-description"
+                                    disabled></textarea>
+                        </div>
+
+                        <div class="row">
+                          <label for="todo-dueDate">Due Date</label>
+                          <input type="date"
+                                  name="todo-dueDate"
+                                  id="todo-dueDate"
+                                  disabled>
+                        </div>
+
+                        <div class="row">
+                          <label for="todo-priority">Priority</label>
+                          <input name="todo-priority" id="todo-priority" disabled>
+                        </div>
+                      </div>
+
+                      <div class="buttons">
+                        <button class="cancel">Close</button>
+                      </div>
+                    </form>`
+
+  const todoName = dialog.querySelector("#todo-name");
+  const todoDescription = dialog.querySelector("#todo-description");
+  const todoDueDate = dialog.querySelector("#todo-dueDate");
+  const todoPriority = dialog.querySelector("#todo-priority");
+
+  todoName.value = targetTodo.title;
+  todoDescription.value = targetTodo.description;
+  todoDueDate.value = targetTodo.dueDate;
+  todoPriority.value = Utils.capitalize(targetTodo.priority);
 
   main.appendChild(dialog);
 }
