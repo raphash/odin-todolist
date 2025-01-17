@@ -6,20 +6,29 @@ import * as TodoManager from "./TodoManager.js";
 import * as Todo from "../components/Todo.js";
 import * as Utils from "./Utils.js";
 
-export function removeDialog() {
+export function openDialog(dialog) {
+  const main = document.querySelector("main");
+  main.appendChild(dialog);
+}
+
+export function closeDialog() {
   let dialog = document.querySelector("dialog");
   if (dialog) dialog.remove();
 }
 
-export function showCreateProjectDialog() {
+export function createDialog(dialogType) {
+  closeDialog();
 
-  // Dialog configuration.
-  removeDialog();
-
-  const main = document.querySelector("main");  
   const dialog = document.createElement("dialog");
         dialog.setAttribute("open", "open");
-        dialog.classList.add("project-dialog");
+        dialog.classList.add(dialogType);
+
+  return dialog;
+}
+
+export function showCreateProjectDialog() {
+
+  const dialog = createDialog("project-dialog");
   
   dialog.innerHTML = `<div class="header">
                       <box-icon type="solid" 
@@ -51,14 +60,13 @@ export function showCreateProjectDialog() {
                     </form>`
 
   // Dialog items configuration.
-  let cancelBtn = dialog.querySelector(".cancel");
-  let createBtn = dialog.querySelector(".create");
-  let projectName = dialog.querySelector("#project-name");
+  const cancelBtn = dialog.querySelector(".cancel");
+  const createBtn = dialog.querySelector(".create");
+  const projectName = dialog.querySelector("#project-name");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    removeDialog();
-    dialog.close();
+    closeDialog();
   });
 
   createBtn.addEventListener("click", (e)=>{
@@ -69,18 +77,12 @@ export function showCreateProjectDialog() {
     }
   });
 
-  main.appendChild(dialog);
+  openDialog(dialog);
 }
 
 export function showEditProjectDialog() {
 
-  // Dialog configuration.
-  removeDialog();
-
-  const main = document.querySelector("main");  
-  const dialog = document.createElement("dialog");
-        dialog.setAttribute("open", "open");
-        dialog.classList.add("project-dialog");
+  const dialog = createDialog("project-dialog");
   
   dialog.innerHTML = `<div class="header">
                       <box-icon type="solid" 
@@ -112,27 +114,27 @@ export function showEditProjectDialog() {
                     </form>`
 
   // Dialog items configuration.
-  let cancelBtn = dialog.querySelector(".cancel");
-  let editBtn = dialog.querySelector(".edit");
-  let projectName = dialog.querySelector("#project-name");
+  const cancelBtn = dialog.querySelector(".cancel");
+  const editBtn = dialog.querySelector(".edit");
+  const projectName = dialog.querySelector("#project-name");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    removeDialog();
+    closeDialog();
   });
 
   editBtn.addEventListener("click", (e)=>{
-    e.preventDefault();
+    e.preventDefault();;
 
     // Update project title, view and header.
     ProjectManager.setProjectTitle(getDialogProjectId(), projectName.value);
     TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId()); 
     ProjectManager.updateProjectsView();
 
-    removeDialog();
+    closeDialog();
   });
 
-  main.appendChild(dialog);
+  openDialog(dialog);
 }
 
 export function setEditDialogInfo(name) {
@@ -149,13 +151,13 @@ export function setDialogTargetId(id) {
   dialog.setAttribute("data-id", id);
 }
 
-export function showCreateTodoDialog() {
-  removeDialog();
+export function isAllInputsFilled(inputsArray) {
+  return inputsArray.every(input => input.value);
+}
 
-  const main = document.querySelector("main");  
-  const dialog = document.createElement("dialog");
-        dialog.setAttribute("open", "open");
-        dialog.classList.add("todo-dialog");
+export function showCreateTodoDialog() {
+
+  const dialog = createDialog("todo-dialog");
   
   dialog.innerHTML = `<div class="header">
                       <box-icon name="task"
@@ -183,11 +185,9 @@ export function showCreateTodoDialog() {
 
                         <div class="row">
                           <label for="todo-description">Description</label>
-                          <input type="text"
-                                name="todo-description"
-                                id="todo-description"
-                                autocomplete="off"
-                                required>
+                          <textarea name="todo-description"
+                                    id="todo-description"
+                                    required></textarea>
                         </div>
 
                         <div class="row">
@@ -215,54 +215,45 @@ export function showCreateTodoDialog() {
                       </div>
                     </form>`
 
-  const info = {
-    todoTitle: dialog.querySelector("#todo-name"),
-    todoDescription: dialog.querySelector("#todo-description"),
-    todoDueDate: dialog.querySelector("#todo-dueDate"),
-    todoPriority: dialog.querySelector("#todo-priority")
-  };
-  
-  let cancelBtn = dialog.querySelector(".cancel");
-  let createBtn = dialog.querySelector(".create");
+  const title = dialog.querySelector("#todo-name");
+  const description = dialog.querySelector("#todo-description");
+  const dueDate = dialog.querySelector("#todo-dueDate");
+  const priority = dialog.querySelector("#todo-priority");
+  const cancelBtn = dialog.querySelector(".cancel");
+  const createBtn = dialog.querySelector(".create");
+
+  const inputs = [ title, description, dueDate, priority ];
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    removeDialog();
-    dialog.close();
+    closeDialog();
   });
 
-  createBtn.addEventListener("click", ()=>{
-    // Checks if all inputs is not empty.
-    for (const input in info) {
-      if (!info[input].value) {
-        return;
-      }
+  createBtn.addEventListener("click", (e)=>{
+    const currentProjectId = LocalStorage.getCurrentProjectId();
+
+    if (isAllInputsFilled(inputs)) {
+      const todo = Todo.createTodo(
+        title.value,
+        description.value,
+        dueDate.value,
+        priority.value
+      );
+  
+      TodoManager.setHeaderTitle(currentProjectId);
+      TodoManager.addProjectTodo(currentProjectId, todo);
+      Todo.createCard(todo);
+      TodoManager.updateTodos(currentProjectId);
+      LocalStorage.updateProjects();
     }
-
-    const todo =  Todo.createTodo(
-      info["todoTitle"].value,
-      info["todoDescription"].value,
-      info["todoDueDate"].value,
-      info["todoPriority"].value
-    );
-
-    TodoManager.setHeaderTitle(LocalStorage.getCurrentProjectId());
-    TodoManager.addProjectTodo(LocalStorage.getCurrentProjectId(), todo);
-    Todo.createCard(todo);
-    TodoManager.updateTodos(LocalStorage.getCurrentProjectId());
-    LocalStorage.updateProjects();
   });
 
-  main.appendChild(dialog);
+  openDialog(dialog);
 }
 
 export function showEditTodoDialog(targetTodo) {
-  removeDialog();
 
-  const main = document.querySelector("main");  
-  const dialog = document.createElement("dialog");
-        dialog.setAttribute("open", "open");
-        dialog.classList.add("todo-dialog");
+  const dialog = createDialog("todo-dialog");
   
   dialog.innerHTML = `<div class="header">
                       <box-icon name="task"
@@ -290,11 +281,9 @@ export function showEditTodoDialog(targetTodo) {
 
                         <div class="row">
                           <label for="todo-description">Description</label>
-                          <input type="text"
-                                name="todo-description"
-                                id="todo-description"
-                                autocomplete="off"
-                                required>
+                          <textarea name="todo-description"
+                                    id="todo-description"
+                                    required></textarea>
                         </div>
 
                         <div class="row">
@@ -321,35 +310,31 @@ export function showEditTodoDialog(targetTodo) {
                       </div>
                     </form>`
 
-  const info = {
-    todoTitle: dialog.querySelector("#todo-name"),
-    todoDescription: dialog.querySelector("#todo-description"),
-    todoDueDate: dialog.querySelector("#todo-dueDate"),
-    todoPriority: dialog.querySelector("#todo-priority")
-  };
+  const title = dialog.querySelector("#todo-name");
+  const description = dialog.querySelector("#todo-description");
+  const dueDate = dialog.querySelector("#todo-dueDate");
+  const priority = dialog.querySelector("#todo-priority");
+  const cancelBtn = dialog.querySelector(".cancel");
+  const editBtn = dialog.querySelector(".edit");
 
-  let cancelBtn = dialog.querySelector(".cancel");
-  let editBtn = dialog.querySelector(".edit");
-
-  info["todoTitle"].value = targetTodo.title;
-  info["todoDescription"].value = targetTodo.description;
-  info["todoDueDate"].value = targetTodo.dueDate;
-  info["todoPriority"].value =targetTodo.priority;
+  title.value = targetTodo.title;
+  description.value = targetTodo.description;
+  dueDate.value = targetTodo.dueDate;
+  priority.value = targetTodo.priority;
   
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
-    removeDialog();
-    dialog.close();
+    closeDialog();
   });
 
-  editBtn.addEventListener("click", ()=>{
+  editBtn.addEventListener("click", (e)=>{
     const currentProjectId = LocalStorage.getCurrentProjectId();
     
     TodoManager.editProjectTodo(currentProjectId, targetTodo.id, {
-      title: info["todoTitle"].value,
-      description: info["todoDescription"].value,
-      dueDate: info["todoDueDate"].value,
-      priority: info["todoPriority"].value
+      title: title.value,
+      description: description.value,
+      dueDate: dueDate.value,
+      priority: priority.value
     });
 
     TodoManager.updateTodos(currentProjectId);
@@ -357,17 +342,11 @@ export function showEditTodoDialog(targetTodo) {
     TodoManager.updateTodosView()
   });
 
-  main.appendChild(dialog);
+  openDialog(dialog);
 }
 
 export function showViewTodoDialog(targetTodo) {
-
-  removeDialog();
-
-  const main = document.querySelector("main");
-  const dialog = document.createElement("dialog");
-        dialog.setAttribute("open", "open");
-        dialog.classList.add("view-dialog");
+  const dialog = createDialog("view-dialog");
 
   dialog.innerHTML = `<div class="header">
                       <box-icon name="show"
@@ -418,15 +397,15 @@ export function showViewTodoDialog(targetTodo) {
                       </div>
                     </form>`
 
-  const todoName = dialog.querySelector("#todo-name");
-  const todoDescription = dialog.querySelector("#todo-description");
-  const todoDueDate = dialog.querySelector("#todo-dueDate");
-  const todoPriority = dialog.querySelector("#todo-priority");
+  const title = dialog.querySelector("#todo-name");
+  const description = dialog.querySelector("#todo-description");
+  const dueDate = dialog.querySelector("#todo-dueDate");
+  const priority = dialog.querySelector("#todo-priority");
 
-  todoName.value = targetTodo.title;
-  todoDescription.value = targetTodo.description;
-  todoDueDate.value = targetTodo.dueDate;
-  todoPriority.value = Utils.capitalize(targetTodo.priority);
+  title.value = targetTodo.title;
+  description.value = targetTodo.description;
+  dueDate.value = targetTodo.dueDate;
+  priority.value = Utils.capitalize(targetTodo.priority);
 
-  main.appendChild(dialog);
+  openDialog(dialog);
 }
