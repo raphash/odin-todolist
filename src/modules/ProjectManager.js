@@ -55,7 +55,6 @@ export function removeProject(targetProject) {
   projects = projects.filter(project => project.id != targetProject.id);
 }
 
-// Modify an existing project title
 export function setProjectTitle(projectId, title) {
   for (const project of getProjects()) {
     if (project.id == projectId) {
@@ -68,7 +67,6 @@ export function getProject(projectId) {
   return projects.find(project => project.id == projectId);
 }
 
-// Adds all localStorage projects to projects array
 export function updateProjects() {
   clearProjects();
   projects = [...LocalStorage.getProjects()];
@@ -82,18 +80,15 @@ export function isProjectsEmpty() {
   return projects.length < 1;
 }
 
-// Clear temporary array.
 export function clearProjects() {
   projects.splice(0, projects.length);
 }
 
-// Remove all html project elements.
 export function clearProjectsView() {
   const projectsEl = document.querySelector(".projects");
   projectsEl.innerHTML = "";
 }
 
-// Update all projects components based on localStorage
 export function updateProjectsView() {
   clearProjectsView();
   LocalStorage.updateProjects();

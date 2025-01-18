@@ -56,7 +56,6 @@ export function editProjectTodo(projectId, todoId, { title, description, dueDate
   }
 }
 
-// Clear all temporary saved todos.
 export function clearTodos() {
   todos.splice(0, todos.length);
 }
@@ -97,7 +96,6 @@ export function clearTodosView() {
         todos.innerHTML = "";
 }
 
-// Render all todos in html.
 export function updateTodosView(projectId) {
   clearTodosView();
   updateTodos(projectId);
