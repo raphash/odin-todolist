@@ -6,7 +6,10 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --config webpack.dev.js",
-    "clean": "rm -rf dist/"
+    "clean": "rm -rf dist/",
+    "stage-dist": "git add dist -f && git commit -m 'Deployment commit'",
+    "push-dist": "git subtree push --prefix dist origin gh-pages && git checkout main",
+    "deploy": "npm-run-all --parallel stage-dist push-dist"
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
   "devDependencies": {
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
+    "npm-run-all": "^4.1.5",
     "style-loader": "^4.0.0",
     "uniqid": "^5.4.0",
     "webpack": "^5.97.1",
