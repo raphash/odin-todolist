@@ -37,9 +37,9 @@ function createInitialProject() {
 }
 
 export function initialSetup() {
-  if (LocalStorage.isProjectsEmpty()) {
-    createInitialProject();
-  }
+  LocalStorage.initialSetup();
+
+  if (LocalStorage.isProjectsEmpty()) createInitialProject();
 
   updateProjects();
   updateProjectsView();
