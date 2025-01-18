@@ -71,7 +71,7 @@ export function getProject(projectId) {
 // Adds all localStorage projects to projects array
 export function updateProjects() {
   clearProjects();
-  projects = projects.concat(LocalStorage.getProjects());
+  projects = [...LocalStorage.getProjects()];
 }
 
 export function getProjects() {

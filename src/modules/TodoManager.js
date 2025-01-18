@@ -7,22 +7,18 @@ const todos = [];
 
 // Adds a todo to todos array of specific project.
 export function addProjectTodo(projectId, todo) {
-  const project = ProjectManager.getProject(projectId);
+  const targetProject = ProjectManager.getProject(projectId);
+  const isProjectsEmpty = ProjectManager.isProjectsEmpty();
 
-  if (project) {
-    project["todos"].push(todo);
-    return;
+  if (targetProject) {
+    targetProject["todos"].push(todo);
   } 
-
-  if (!project && !ProjectManager.isProjectsEmpty()) {
+  else if (!isProjectsEmpty) {
     ProjectManager.getProject(ProjectManager.getProjects()[0].id)["todos"].push(todo);
   }
-
-  // Add the todo to target project if it exists.
-  if (ProjectManager.isProjectsEmpty()) {
+  else  {
     ProjectManager.initialSetup();
     ProjectManager.getProject(LocalStorage.getCurrentProjectId())["todos"].push(todo);
-    return;
   };
 }
 
@@ -67,26 +63,15 @@ export function clearTodos() {
 
 // Get all todos of specific project and set it to todos array.
 export function updateTodos(projectId) {
-  function updateTodos(projectId) {
-    const projectTodos = ProjectManager.getProject(projectId).todos;
-    
+  function updateProjectTodos(id) {
+    const projectTodos = ProjectManager.getProject(id).todos;
     clearTodos();
-
-    for (const todo of projectTodos) {
-      todos.push(todo);
-    }
+    todos.push(...projectTodos);
   }
 
-  // Set the first project todos if project with projectId does exists.
-  if (!ProjectManager.isProjectsEmpty() &&
-      !ProjectManager.getProject(projectId)) {
-        updateTodos(ProjectManager.getProjects()[0].id);
-        return;
-  }
-
-  if (ProjectManager.getProject(projectId)) {
-    updateTodos(projectId);
-    return;
+  if (!ProjectManager.isProjectsEmpty()) {
+    const project = ProjectManager.getProject(projectId) || ProjectManager.getProjects()[0];
+    updateProjectTodos(project.id);
   }
 }
 
@@ -97,18 +82,14 @@ export function getTodos() {
 export function setHeaderTitle(projectId) {
   const headerTitle = document.querySelector(".currentProject .title");
 
-  if (!ProjectManager.isProjectsEmpty() &&
-      !ProjectManager.getProject(projectId)) {
-      headerTitle.textContent = ProjectManager.getProjects()[0].title;
-      return;
-  }
-
   if (ProjectManager.isProjectsEmpty()) {
-    headerTitle.textContent = "None"
+    headerTitle.textContent = "None";
     return;
   }
 
-  headerTitle.textContent = ProjectManager.getProject(projectId).title;
+  const project = ProjectManager.getProject(projectId) || ProjectManager.getProjects()[0];
+
+  headerTitle.textContent = project.title;
 }
 
 export function clearTodosView() {
