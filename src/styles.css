@@ -148,7 +148,7 @@ dialog[open] {
   position: absolute;
   top: 50%;
   left: 50%;
-  translate: -50% -50%;
+  transform: translate(-50%, -50%);
   border: none;
   padding: 2rem;
   gap: 1rem;
