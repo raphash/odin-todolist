@@ -6,11 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "dev": "webpack serve --config webpack.dev.js",
-    "clean": "rm -rf dist/",
-    "merge-dist": "git checkout gh-pages && git merge main --no-edit",
-    "stage-dist": "git add dist -f && git commit -m 'Deployment commit'",
-    "push-dist": "git subtree push --prefix dist origin gh-pages && git checkout main",
-    "deploy": "npm-run-all --parallel merge-dist stage-dist push-dist"
+    "clean": "rm -rf dist/"
   },
   "repository": {
     "type": "git",
