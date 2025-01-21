@@ -63,6 +63,7 @@ export function showCreateProjectDialog() {
   const cancelBtn = dialog.querySelector(".cancel");
   const createBtn = dialog.querySelector(".create");
   const projectName = dialog.querySelector("#project-name");
+  const form = dialog.querySelector("form");
 
   cancelBtn.addEventListener("click", (e)=>{
     e.preventDefault();
@@ -70,7 +71,7 @@ export function showCreateProjectDialog() {
   });
 
   createBtn.addEventListener("click", (e)=>{
-    if (projectName.value) {
+    if (projectName.checkValidity()) {
       ProjectManager.addProject(Project.createProject(projectName.value));
       LocalStorage.updateProjects();
       ProjectManager.updateProjectsView();
@@ -151,10 +152,6 @@ export function setDialogTargetId(id) {
   dialog.setAttribute("data-id", id);
 }
 
-export function isAllInputsFilled(inputsArray) {
-  return inputsArray.every(input => input.value);
-}
-
 export function showCreateTodoDialog() {
 
   const dialog = createDialog("todo-dialog");
@@ -215,6 +212,7 @@ export function showCreateTodoDialog() {
                       </div>
                     </form>`
 
+  const form = dialog.querySelector("form");
   const title = dialog.querySelector("#todo-name");
   const description = dialog.querySelector("#todo-description");
   const dueDate = dialog.querySelector("#todo-dueDate");
@@ -232,7 +230,7 @@ export function showCreateTodoDialog() {
   createBtn.addEventListener("click", (e)=>{
     const currentProjectId = LocalStorage.getCurrentProjectId();
 
-    if (isAllInputsFilled(inputs)) {
+    if (form.checkValidity()) {
       const todo = Todo.createTodo(
         title.value,
         description.value,
