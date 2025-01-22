@@ -17,7 +17,10 @@ module.exports = {
       },
       {
         test: /\.ttf$/i,
-        type: "asset/resource"
+        type: "asset/resource",
+        generator: {
+          filename: "[name][ext]"
+        }
       }
     ]
   },
