@@ -2,7 +2,6 @@ import uniqid from "uniqid";
 import * as LocalStorage from "../modules/LocalStorage.js";
 import * as TodoManager from "../modules/TodoManager.js";
 import * as DialogManager from "../modules/DialogManager.js";
-import * as ProjectManager from "../modules/ProjectManager.js";
 
 export function createTodo(title, description, dueDate, priority) {
   return { title, description, dueDate, priority, id: uniqid() };
